@@ -1,4 +1,4 @@
-Project Name: iresourcepersonalweb
+Project Name: final-project
 Framework: ReactJS
 
 ## Prerequisites
