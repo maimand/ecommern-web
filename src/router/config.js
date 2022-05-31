@@ -49,7 +49,7 @@ export const routeConfig = [
     component: UpdatePassWord
   },
   {
-    path: "/home",
+    path: "/",
     isPrivate: false,
     exact: true,
     component: Home
@@ -62,7 +62,7 @@ const PrivateRoute = (privateProps) => {
   if (user) {
     if (user.isProfileCreated) {
       if (privateProps.path === "home") {
-        return <Redirect to="/home" />;
+        return <Redirect to="/" />;
       }
 
       if (
@@ -76,7 +76,7 @@ const PrivateRoute = (privateProps) => {
     return <privateProps.component {...privateProps} />;
   }
 
-  return <Redirect to="/home" />;
+  return <Redirect to="/" />;
 };
 
 export const RouteWithSubRoutes = (route) => {

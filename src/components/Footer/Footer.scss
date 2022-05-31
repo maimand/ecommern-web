@@ -1,9 +1,10 @@
 @import "assets/scss/app.scss";
 
 .footer {
-  height: 250px;
+  height: max-content;
   width: 100%;
   border-top: 1px solid #ababab;
+  padding: 10px 0px;
 
   .footer-content {
     display: flex;
