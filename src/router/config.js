@@ -9,6 +9,7 @@ import VerifyEmail from "pages/Authentication/VerifyEmail/VerifyEmail";
 import EnterEmail from "pages/Authentication/ForgotPassword/EnterEmail";
 import VerifyDigitalCode from "pages/Authentication/ForgotPassword/VerifyDigitalCode";
 import UpdatePassWord from "pages/Authentication/ForgotPassword/UpdatePassWord";
+import { Home } from "pages/Home/Home";
 
 export const routeConfig = [
   {
@@ -47,6 +48,12 @@ export const routeConfig = [
     exact: true,
     component: UpdatePassWord
   },
+  {
+    path: "/home",
+    isPrivate: false,
+    exact: true,
+    component: Home
+  },
   { path: "*", component: Error }
 ];
 
@@ -69,7 +76,7 @@ const PrivateRoute = (privateProps) => {
     return <privateProps.component {...privateProps} />;
   }
 
-  return <Redirect to="/login" />;
+  return <Redirect to="/home" />;
 };
 
 export const RouteWithSubRoutes = (route) => {

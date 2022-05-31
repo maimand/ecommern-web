@@ -30,17 +30,8 @@ const slice = createSlice({
         window.location.href = "/verify-email";
         return;
       }
-      if (payload?.user?.roles[0] === USER_ROLE.DEVELOP) {
-        if (payload?.user?.isProfileCreated === true) {
-          window.location.href = "/explore-projects";
-        } else {
-          window.location.href = "/profile-creation";
-        }
-      } else {
-        if (payload?.user?.isProfileCreated) {
-          window.location.href = "/manage-projects";
-        } else window.location.href = "/general-information";
-      }
+
+      window.location.href = "/home";
     },
     logoutSuccess: (state) => {
       state.user = null;
