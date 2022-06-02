@@ -1,34 +1,19 @@
-import { React, useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { React, useState } from "react";
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "store/user";
-import { USER_ROLE } from "core/constants";
 import Loading from "components/Loading/Loading";
 
 function FormLogin() {
-  const userStore = useSelector((state) => state.user.user);
   const isLoading = useSelector((state) => state.user.loading);
   const rememberMe = localStorage.getItem("rememberMe")
     ? JSON.parse(localStorage.getItem("rememberMe"))
     : null;
 
-  const [user] = useState(userStore);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const dispatch = useDispatch();
-
-  let history = useHistory();
-  useEffect(() => {
-    if (user?.isEnable && user?.email) {
-      if (user.roles[0] === USER_ROLE.DEVELOP) {
-        history.push("/my-projects");
-      } else {
-        history.push("/manage-projects");
-      }
-      return;
-    }
-  }, []);
 
   const formik = useFormik({
     initialValues: {

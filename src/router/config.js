@@ -7,7 +7,6 @@ import SignUp from "pages/Authentication/SignUp/SignUp";
 import Error from "pages/Error/Error.js";
 import VerifyEmail from "pages/Authentication/VerifyEmail/VerifyEmail";
 import EnterEmail from "pages/Authentication/ForgotPassword/EnterEmail";
-import VerifyDigitalCode from "pages/Authentication/ForgotPassword/VerifyDigitalCode";
 import UpdatePassWord from "pages/Authentication/ForgotPassword/UpdatePassWord";
 import { Home } from "pages/Home/Home";
 
@@ -37,13 +36,7 @@ export const routeConfig = [
     component: EnterEmail
   },
   {
-    path: "/forgot-password-verify-code",
-    isPrivate: false,
-    exact: true,
-    component: VerifyDigitalCode
-  },
-  {
-    path: "/forgot-password-update-password",
+    path: "/forgot-password-update-password/:token",
     isPrivate: false,
     exact: true,
     component: UpdatePassWord

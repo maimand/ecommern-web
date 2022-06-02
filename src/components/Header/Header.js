@@ -15,13 +15,20 @@ import {
   NavItem
 } from "reactstrap";
 import { NavLink, useHistory, NavLink as ActiveLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "store/user";
 
 const Header = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const authenticate = JSON.parse(localStorage.getItem("user"));
 
   const clickLogo = () => {
     history.replace("/home");
   };
+
+  const logoutUser = () => dispatch(logout());
 
   return (
     <header className="header">
@@ -69,20 +76,32 @@ const Header = () => {
                   My Shop
                 </NavLink>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav>
-                  Welcome!
-                  <span className="fa fa-chevron-down dropdown-caret"></span>
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem onClick={() => history.push("/login")}>
-                    Login
-                  </DropdownItem>
-                  <DropdownItem onClick={() => history.push("/register")}>
-                    Sign Up
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              {authenticate ? (
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav>
+                    {authenticate.lastName || "User"}
+                    <span className="fa fa-chevron-down dropdown-caret"></span>
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem onClick={logoutUser}>Logout</DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              ) : (
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav>
+                    Welcome!
+                    <span className="fa fa-chevron-down dropdown-caret"></span>
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem onClick={() => history.push("/login")}>
+                      Login
+                    </DropdownItem>
+                    <DropdownItem onClick={() => history.push("/register")}>
+                      Sign Up
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              )}
             </Col>
           </Row>
         </Container>

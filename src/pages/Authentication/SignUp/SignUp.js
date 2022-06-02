@@ -1,35 +1,35 @@
 import React, { useState } from "react";
 import AuthLayout from "layout/AuthLayout/AuthLayout";
 import "./SignUp.scss";
-import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import http from "core/services/httpService";
 import Loading from "components/Loading/Loading";
 import { pushToast } from "components/Toast";
+import { useFormik } from "formik";
 
 const SignUp = () => {
-  let history = useHistory();
+  // let history = useHistory();
   const [isShow, setIsShow] = useState(false);
   const [isShowConfirm, setIsShowConfirm] = useState(false);
-  const [isLoadding, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      firstname: "",
-      lastname: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       confirmPassword: ""
     },
     validationSchema: Yup.object({
-      firstname: Yup.string()
+      firstName: Yup.string()
         .required("Required!")
         .max(15, "Maximum 15 characters")
         .matches(/^[A-Za-z ]*$/, "Please enter valid name")
         .matches(/^\s*\S[\s\S]*$/, "Cannot contain only blankspaces"),
-      lastname: Yup.string()
+      lastName: Yup.string()
         .required("Required!")
         .max(15, "Maximum 15 characters")
         .matches(/^[A-Za-z ]*$/, "Please enter valid name")
@@ -52,19 +52,29 @@ const SignUp = () => {
         setIsLoading(true);
 
         try {
-          const dataSignup = { ...values };
-          await http.post("/auth/sign-up", dataSignup).then((response) => {
-            if (response?.result) {
-              resetForm();
-              localStorage.setItem("email", values.email);
-              history.push("/verify-email", { email: values.email });
-            } else {
-              pushToast("error", response?.data?.message);
-              values.password = "";
-              values.confirmPassword = "";
-            }
-            setIsLoading(false);
-          });
+          await http
+            .post("/api/auth/register", {
+              email: values.email,
+              firstName: values.firstName,
+              lastName: values.lastName,
+              password: values.password
+            })
+            .then((response) => {
+              if (response?.success) {
+                setIsLoading(false);
+                resetForm();
+
+                pushToast("success", response?.message);
+                // localStorage.setItem("email", values.email);
+                // history.push("/login", { email: values.email });
+              } else {
+                pushToast("error", response?.message);
+                values.password = "";
+                values.confirmPassword = "";
+              }
+
+              setIsLoading(false);
+            });
         } catch (error) {
           pushToast("error", error?.message);
           setIsLoading(false);
@@ -81,7 +91,7 @@ const SignUp = () => {
 
   return (
     <AuthLayout>
-      <Loading visible={isLoadding} />
+      <Loading visible={isLoading} />
       <div className="signup-wrapper">
         <h2 className="signup-title">Sign Up</h2>
         <form onSubmit={formik.handleSubmit}>
@@ -93,12 +103,12 @@ const SignUp = () => {
                   type="text"
                   className="form-control"
                   placeholder="First name"
-                  name="firstname"
-                  value={values.firstname}
+                  name="firstName"
+                  value={values.firstName}
                   onChange={formik.handleChange}
                 />
-                {error.firstname && touched.firstname && (
-                  <p className="errors">{error.firstname}</p>
+                {error.firstName && touched.firstName && (
+                  <p className="errors">{error.firstName}</p>
                 )}
               </div>
               <div className="col form-group">
@@ -107,12 +117,12 @@ const SignUp = () => {
                   type="text"
                   className="form-control"
                   placeholder="Last name"
-                  name="lastname"
-                  value={values.lastname}
+                  name="lastName"
+                  value={values.lastName}
                   onChange={formik.handleChange}
                 />
-                {error.lastname && touched.lastname && (
-                  <p className="errors">{error.lastname}</p>
+                {error.lastName && touched.lastName && (
+                  <p className="errors">{error.lastName}</p>
                 )}
               </div>
             </div>
@@ -188,7 +198,7 @@ const SignUp = () => {
               <span className="font-weight-bold">Privacy Policy</span>
             </p>
             <div className="form-group btn-signup">
-              <Loading visible={isLoadding} />
+              <Loading visible={isLoading} />
               <button type="submit" className="btn btn-block">
                 {" "}
                 SIGN UP
