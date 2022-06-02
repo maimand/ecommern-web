@@ -8,7 +8,7 @@ import useResend from "hook/useResend";
 const VerifyEmail = () => {
   const [digitCode, setDegitCode] = useState("");
   const [yourEmail] = useState(localStorage.getItem("email"));
-  const [isLoadding, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [verifyEmail] = useVerifyEmail();
   const [resendToken] = useResend();
 
@@ -32,7 +32,7 @@ const VerifyEmail = () => {
 
   return (
     <AuthLayout>
-      <Loading visible={isLoadding} />
+      <Loading visible={isLoading} />
       <div className="verify-email-wrapper">
         <h2 className="signup-title">Verify Email</h2>
         <div className="verify-email-form">
