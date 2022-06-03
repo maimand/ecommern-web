@@ -5,11 +5,13 @@ import { useSelector } from "react-redux";
 import Login from "pages/Authentication/Login/Login";
 import SignUp from "pages/Authentication/SignUp/SignUp";
 import Error from "pages/Error/Error.js";
-import VerifyEmail from "pages/Authentication/VerifyEmail/VerifyEmail";
+// import VerifyEmail from "pages/Authentication/VerifyEmail/VerifyEmail";
 import EnterEmail from "pages/Authentication/ForgotPassword/EnterEmail";
-import VerifyDigitalCode from "pages/Authentication/ForgotPassword/VerifyDigitalCode";
+// import VerifyDigitalCode from "pages/Authentication/ForgotPassword/VerifyDigitalCode";
 import UpdatePassWord from "pages/Authentication/ForgotPassword/UpdatePassWord";
 import { Home } from "pages/Home/Home";
+import OrderManagement from "pages/OrderManagement/OrderManagement";
+import OrderDetailMerchant from "pages/OrderManagement/OrderDetail/OrderDetailMerchant";
 
 export const routeConfig = [
   {
@@ -18,12 +20,12 @@ export const routeConfig = [
     exact: true,
     component: SignUp
   },
-  {
-    path: "/verify-email",
-    isPrivate: false,
-    exact: false,
-    component: VerifyEmail
-  },
+  // {
+  //   path: "/verify-email",
+  //   isPrivate: false,
+  //   exact: false,
+  //   component: VerifyEmail
+  // },
   {
     path: "/login",
     isPrivate: false,
@@ -36,12 +38,12 @@ export const routeConfig = [
     exact: true,
     component: EnterEmail
   },
-  {
-    path: "/forgot-password-verify-code",
-    isPrivate: false,
-    exact: true,
-    component: VerifyDigitalCode
-  },
+  // {
+  //   path: "/forgot-password-verify-code",
+  //   isPrivate: false,
+  //   exact: true,
+  //   component: VerifyDigitalCode
+  // },
   {
     path: "/forgot-password-update-password",
     isPrivate: false,
@@ -53,6 +55,18 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: Home
+  },
+  {
+    path: "/order-managerment",
+    isPrivate: false,
+    exact: true,
+    component: OrderManagement
+  },
+  {
+    path: "/order-managerment-detail/:id",
+    isPrivate: false,
+    exact: true,
+    component: OrderDetailMerchant
   },
   { path: "*", component: Error }
 ];
