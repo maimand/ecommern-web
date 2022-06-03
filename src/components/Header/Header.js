@@ -12,16 +12,24 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavItem
+  NavItem,
+  Button
 } from "reactstrap";
 import { NavLink, useHistory, NavLink as ActiveLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "store/user";
 
 const Header = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const authenticate = JSON.parse(localStorage.getItem("user"));
 
   const clickLogo = () => {
     history.replace("/home");
   };
+
+  const logoutUser = () => dispatch(logout());
 
   return (
     <header className="header">
@@ -42,6 +50,11 @@ const Header = () => {
               style={{ width: "40%", flex: "3" }}
             >
               <Input placeholder="searching..." />
+            </Col>
+            <Col>
+              <Button onClick={() => history.push("/order-managerment")}>
+                OrderManagement
+              </Button>
             </Col>
             <Col
               className="d-flex flex-row align-items-baseline justify-content-end inline-block"
@@ -69,20 +82,32 @@ const Header = () => {
                   My Shop
                 </NavLink>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav>
-                  Welcome!
-                  <span className="fa fa-chevron-down dropdown-caret"></span>
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem onClick={() => history.push("/login")}>
-                    Login
-                  </DropdownItem>
-                  <DropdownItem onClick={() => history.push("/register")}>
-                    Sign Up
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              {authenticate ? (
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav>
+                    {authenticate.lastName || "User"}
+                    <span className="fa fa-chevron-down dropdown-caret"></span>
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem onClick={logoutUser}>Logout</DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              ) : (
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav>
+                    Welcome!
+                    <span className="fa fa-chevron-down dropdown-caret"></span>
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem onClick={() => history.push("/login")}>
+                      Login
+                    </DropdownItem>
+                    <DropdownItem onClick={() => history.push("/register")}>
+                      Sign Up
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              )}
             </Col>
           </Row>
         </Container>
