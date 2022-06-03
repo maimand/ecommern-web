@@ -1,53 +1,44 @@
-/*eslint-disable*/
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import AuthLayout from "layout/AuthLayout/AuthLayout";
 import "./UpdatePassWord.scss";
-import http from "core/services/httpService";
-import Loading from "components/Loading/Loading";
-import { pushToast } from "components/Toast";
+import { resetPassword } from "store/user";
+import { useDispatch } from "react-redux";
 
 function UpdatePassWord() {
-  const history = useHistory()
-  const [isLoadding, setIsLoading] = useState(false);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { token } = useParams();
+
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
-  const [emailforgotPassword] = useState(localStorage.getItem("emailforgotPassword"));
+
   const formik = useFormik({
     initialValues: {
-      passWord: '',
-      confirmPassword: ''
+      password: "",
+      confirmPassword: ""
     },
     validationSchema: Yup.object({
-      passWord: Yup.string().min(5, "Minimum 5 characters").required("Required!"),
-      confirmPassword:  Yup.string().oneOf([Yup.ref("passWord")], "Password's not match").required("Required!")
+      password: Yup.string()
+        .min(5, "Minimum 5 characters")
+        .required("Required!"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password")], "Password's not match")
+        .required("Required!")
     }),
-    onSubmit: async (values) => {
-      try {
-        setIsLoading(true);
-        const respone = await http.post(`/auth/reset-password`, { 
-          "email": emailforgotPassword,
-          "password": values.passWord
-        })
-        if(respone.result) {
-          history.push('/login', { successful: `Change password successfully!`})
-        }
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
-        pushToast("error", err.message);
-      }
+    onSubmit: async (values, { resetForm }) => {
+      resetForm();
+      dispatch(resetPassword(values.password, token));
     }
-  })
-  const {values, errors} = formik
+  });
+  const { values, errors } = formik;
   const goBack = () => {
-    history.goBack()
-  }
+    history.goBack();
+  };
   return (
     <AuthLayout>
-      <Loading visible={isLoadding} />
       <div className="update-password-wrapper">
         <div onClick={goBack} className="update-back-btn"></div>
         <div className="update-main">
@@ -55,11 +46,11 @@ function UpdatePassWord() {
           <form onSubmit={formik.handleSubmit} className="update-form">
             <div className="update-pass-form-group">
               <label>New password</label>
-              <input 
-                type={isShowPassword ? "text" : "password"} 
-                className="update-newpass" 
-                name="passWord"
-                value={values.passWord}
+              <input
+                type={isShowPassword ? "text" : "password"}
+                className="update-newpass"
+                name="password"
+                value={values.password}
                 onChange={formik.handleChange}
               />
               <div
@@ -72,15 +63,13 @@ function UpdatePassWord() {
                   <i className="far fa-eye-slash" />
                 )}
               </div>
-              {errors.passWord && (
-                <p className="errors">{errors.passWord}</p>
-              )}
+              {errors.password && <p className="errors">{errors.password}</p>}
             </div>
             <div className="update-pass-form-group confirm-pass-group">
               <label>Confirm password</label>
-              <input 
-                type={isShowConfirmPassword ? "text" : "password"} 
-                className="update-newpass confirm-newpass" 
+              <input
+                type={isShowConfirmPassword ? "text" : "password"}
+                className="update-newpass confirm-newpass"
                 name="confirmPassword"
                 value={values.confirmPassword}
                 onChange={formik.handleChange}
@@ -99,7 +88,9 @@ function UpdatePassWord() {
                 <p className="errors">{errors.confirmPassword}</p>
               )}
             </div>
-            <button type="submit" className="update-btn-submit">UPDATE PASSWORD</button>
+            <button type="submit" className="update-btn-submit">
+              UPDATE PASSWORD
+            </button>
           </form>
         </div>
       </div>
