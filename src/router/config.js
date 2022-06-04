@@ -9,6 +9,7 @@ import VerifyEmail from "pages/Authentication/VerifyEmail/VerifyEmail";
 import EnterEmail from "pages/Authentication/ForgotPassword/EnterEmail";
 import UpdatePassWord from "pages/Authentication/ForgotPassword/UpdatePassWord";
 import { Home } from "pages/Home/Home";
+import ProductManagement from "pages/ProductManagement/ProductManagement";
 
 export const routeConfig = [
   {
@@ -46,6 +47,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: Home
+  },
+  {
+    path: "/product-management",
+    isPrivate: false,
+    exact: true,
+    component: ProductManagement
   },
   { path: "*", component: Error }
 ];
