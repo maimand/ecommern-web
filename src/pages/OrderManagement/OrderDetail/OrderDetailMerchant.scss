@@ -1,0 +1,39 @@
+
+.overview-category {
+    position: relative;
+    padding: 20px;
+    .merchant-header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .action{
+          display: flex;
+          .form-select{
+              margin-right: 10px;
+              width: 150px;
+          }
+      }
+    }
+  
+    .btn-add {
+      position: absolute;
+      top: 70px;
+      right: 70px;
+    }
+  
+    .main {
+      margin-top: 20px;
+    }
+    .infor{
+      color: black;
+      .item{
+        display: flex;
+        margin-top: 10px;
+        h6{
+          width: 150px;
+          color: rgb(63, 54, 54);
+        }
+      }
+    }
+  }
+  

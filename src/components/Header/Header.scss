@@ -10,11 +10,16 @@
   padding: 10px 0px 5px 0px;
   width: 100%;
   border-bottom: 1px solid #575757;
+  z-index: 100;
 
   .brand {
     background-color: red;
     &:hover {
       cursor: pointer;
+    }
+    .logo{
+    
+      height: 50px;
     }
   }
 

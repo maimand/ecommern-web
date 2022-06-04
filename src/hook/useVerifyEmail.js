@@ -1,6 +1,6 @@
 import http from "core/services/httpService";
 import { pushToast } from "components/Toast";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 export default function useVerifyEmail() {
   const history = useHistory();

@@ -9,6 +9,8 @@ import VerifyEmail from "pages/Authentication/VerifyEmail/VerifyEmail";
 import EnterEmail from "pages/Authentication/ForgotPassword/EnterEmail";
 import UpdatePassWord from "pages/Authentication/ForgotPassword/UpdatePassWord";
 import { Home } from "pages/Home/Home";
+import OrderManagement from "pages/OrderManagement/OrderManagement";
+import OrderDetailMerchant from "pages/OrderManagement/OrderDetail/OrderDetailMerchant";
 import ProductManagement from "pages/ProductManagement/ProductManagement";
 
 export const routeConfig = [
@@ -49,8 +51,20 @@ export const routeConfig = [
     component: Home
   },
   {
+    path: "/order-management",
+    isPrivate: true,
+    exact: true,
+    component: OrderManagement
+  },
+  {
+    path: "/order-management-detail/:id",
+    isPrivate: true,
+    exact: true,
+    component: OrderDetailMerchant
+  },
+  {
     path: "/product-management",
-    isPrivate: false,
+    isPrivate: true,
     exact: true,
     component: ProductManagement
   },

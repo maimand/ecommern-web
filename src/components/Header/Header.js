@@ -1,5 +1,6 @@
 import React from "react";
 import "./Header.scss";
+import logo from "../../assets/images/logo.png";
 
 import {
   Container,
@@ -12,7 +13,8 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavItem
+  NavItem,
+  Button
 } from "reactstrap";
 import { NavLink, useHistory, NavLink as ActiveLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -41,7 +43,7 @@ const Header = () => {
                 onClick={clickLogo}
                 style={{ textShadow: "1px 1px 8px black" }}
               >
-                MERN Store
+                <img src={logo} alt="" className="logo" />
               </NavbarBrand>
             </Col>
             <Col
@@ -49,6 +51,11 @@ const Header = () => {
               style={{ width: "40%", flex: "3" }}
             >
               <Input placeholder="searching..." />
+            </Col>
+            <Col>
+              <Button onClick={() => history.push("/order-managerment")}>
+                OrderManagement
+              </Button>
             </Col>
             <Col
               className="d-flex flex-row align-items-baseline justify-content-end inline-block"
