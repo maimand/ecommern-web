@@ -1,6 +1,9 @@
 @import "assets/scss/app.scss";
 
 .card-wrapper {
+  cursor: pointer;
+  margin-bottom: 10px;
+
   &-content {
     .card-img {
       width: 100%;
