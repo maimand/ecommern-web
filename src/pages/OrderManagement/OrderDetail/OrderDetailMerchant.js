@@ -43,7 +43,7 @@ export default function OrderDetailMerchant() {
       .put(`/api/order/${id[id.length - 1]}/status`, { status: stateOrder })
       .then((response) => {
         pushToast("success", response.message);
-        history.push("/order-managerment");
+        history.push("/order-management");
       })
       .catch((error) => {
         pushToast("error", error.message);
@@ -64,7 +64,7 @@ export default function OrderDetailMerchant() {
               onChange={(e) => setStateOrder(e.target.value)}
             >
               <option value="PROCESSING">PROCESSING</option>
-              <option value="DELIVERIED">DELIVERIED</option>
+              <option value="DELIVERING">DELIVERING</option>
               <option value="CANCEL">CANCEL</option>
             </select>
             <button
@@ -77,7 +77,7 @@ export default function OrderDetailMerchant() {
             </button>
             <button
               className="btn btn-danger"
-              onClick={() => history.push("/order-managerment")}
+              onClick={() => history.push("/order-management")}
             >
               Cancel
             </button>

@@ -17,13 +17,25 @@ export default function OrderManagement() {
         </th>
         <td>{order?.cart?.products.length}</td>
         <td>{order?.cart?.total}</td>
-        <td>{order?.paymentStatus}</td>
-        <td>{order?.status}</td>
+        <td className={order?.paymentStatus === "PAID" && "text-success"}>
+          {order?.paymentStatus}
+        </td>
+        <td
+          className={
+            order?.status === "CANCEL"
+              ? "text-danger"
+              : order?.status === "RECEIVED "
+              ? "text-success"
+              : ""
+          }
+        >
+          {order?.status}
+        </td>
         <td>
           <button
             className="btn btn-primary"
             onClick={() =>
-              history.push(`/order-managerment-detail/${order._id}`)
+              history.push(`/order-management-detail/${order._id}`)
             }
           >
             Detail

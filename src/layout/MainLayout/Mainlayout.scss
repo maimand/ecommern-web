@@ -8,7 +8,9 @@
   overflow: hidden;
 
   .content {
-    min-height: 65vh;
+    position: relative;
+
+    min-height: 52vh;
     padding: 0px 50px;
     margin: 0px;
     margin-top: 75px;

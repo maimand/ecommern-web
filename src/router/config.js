@@ -5,12 +5,13 @@ import { useSelector } from "react-redux";
 import Login from "pages/Authentication/Login/Login";
 import SignUp from "pages/Authentication/SignUp/SignUp";
 import Error from "pages/Error/Error.js";
-// import VerifyEmail from "pages/Authentication/VerifyEmail/VerifyEmail";
+import VerifyEmail from "pages/Authentication/VerifyEmail/VerifyEmail";
 import EnterEmail from "pages/Authentication/ForgotPassword/EnterEmail";
 import UpdatePassWord from "pages/Authentication/ForgotPassword/UpdatePassWord";
 import { Home } from "pages/Home/Home";
 import OrderManagement from "pages/OrderManagement/OrderManagement";
 import OrderDetailMerchant from "pages/OrderManagement/OrderDetail/OrderDetailMerchant";
+import ProductManagement from "pages/ProductManagement/ProductManagement";
 
 export const routeConfig = [
   {
@@ -19,12 +20,12 @@ export const routeConfig = [
     exact: true,
     component: SignUp
   },
-  // {
-  //   path: "/verify-email",
-  //   isPrivate: false,
-  //   exact: false,
-  //   component: VerifyEmail
-  // },
+  {
+    path: "/verify-email",
+    isPrivate: false,
+    exact: false,
+    component: VerifyEmail
+  },
   {
     path: "/login",
     isPrivate: false,
@@ -50,16 +51,22 @@ export const routeConfig = [
     component: Home
   },
   {
-    path: "/order-managerment",
-    isPrivate: false,
+    path: "/order-management",
+    isPrivate: true,
     exact: true,
     component: OrderManagement
   },
   {
-    path: "/order-managerment-detail/:id",
-    isPrivate: false,
+    path: "/order-management-detail/:id",
+    isPrivate: true,
     exact: true,
     component: OrderDetailMerchant
+  },
+  {
+    path: "/product-management",
+    isPrivate: true,
+    exact: true,
+    component: ProductManagement
   },
   { path: "*", component: Error }
 ];
