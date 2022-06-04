@@ -49,7 +49,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer-copyright d-flex justify-content-center">
-          <span>© 2022 MERN Store</span>
+          <span>Ecommerce Store</span>
         </div>
         <ul className="footer-social">
           <li>

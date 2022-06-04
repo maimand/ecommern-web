@@ -36,7 +36,7 @@ export default function OrderManagement() {
     <MainLayout>
       <div className="overview-category">
         <div className="merchant-header">
-          <h2>Manager Order</h2>
+          <h2>Ecommerce Orders</h2>
         </div>
         <div className="main">
           <Table bordered>
@@ -45,7 +45,7 @@ export default function OrderManagement() {
                 <th>Stt</th>
                 <th>Total Product</th>
                 <th>Total Price</th>
-                <th>Paymant Status</th>
+                <th>Payment Status</th>
                 <th>Status</th>
                 <th style={{ width: "200px" }}>Action</th>
               </tr>

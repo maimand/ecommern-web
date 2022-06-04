@@ -10,7 +10,7 @@ export default function useFetchOrderDetailMerchant() {
       setIsLoading(true);
       await http.get(`/api/order/${id}`).then((response) => {
         console.log(response);
-        setData(response.orderDoc);
+        setData(response.data);
         setIsLoading(false);
       });
     } catch (error) {

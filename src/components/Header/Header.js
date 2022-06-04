@@ -1,5 +1,6 @@
 import React from "react";
 import "./Header.scss";
+import logo from "../../assets/images/logo.png";
 
 import {
   Container,
@@ -42,7 +43,7 @@ const Header = () => {
                 onClick={clickLogo}
                 style={{ textShadow: "1px 1px 8px black" }}
               >
-                MERN Store
+                <img src={logo} alt="" className="logo" />
               </NavbarBrand>
             </Col>
             <Col
