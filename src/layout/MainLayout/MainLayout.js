@@ -3,7 +3,7 @@ import Header from "components/Header/Header";
 import React from "react";
 import { Container } from "reactstrap";
 
-import "./Mainlayout.scss";
+import "./MainLayout.scss";
 
 export default function MainLayout(props) {
   return (

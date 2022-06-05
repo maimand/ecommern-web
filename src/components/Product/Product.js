@@ -1,4 +1,6 @@
+import { USER_ROLE } from "core/constants";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -10,13 +12,26 @@ import {
 
 import "./Product.scss";
 
-export default function Product() {
+export default function Product(props) {
+  const history = useHistory();
+  const userRole = JSON.parse(localStorage.getItem("user"));
   const [addCart, setAddCart] = useState(false);
+  const productInfo = props.productInfo;
+
+  const handleActionWithRole = () => {
+    return userRole?.role === USER_ROLE.MERCHANT
+      ? updateProduct(productInfo?._id)
+      : onAddCart();
+  };
 
   const onAddCart = () => {
     if (!addCart) {
-      setAddCart(true);
+      return setAddCart(true);
     }
+  };
+
+  const updateProduct = (id) => {
+    return history.push(`/update-product-merchant/${id}`);
   };
 
   return (
@@ -24,19 +39,19 @@ export default function Product() {
       <Card className="card-wrapper-content">
         <CardImg
           alt="Card image cap"
-          src="https://picsum.photos/318/180"
+          src={productInfo?.imageUrl}
           top
           width="100%"
           className="card-img"
         />
         <CardBody>
           <CardTitle className="text-center" tag="h5">
-            Product Name
+            {productInfo.name}
           </CardTitle>
           <CardSubtitle className="mb-2 text-muted text-center" tag="h6">
-            100 $
+            {`${productInfo.price} $`}
           </CardSubtitle>
-          <CardText>asafdaaaaaaaaaaaaaaaaaaaaassa</CardText>
+          <CardText>{productInfo.description}</CardText>
           <div
             style={{ width: "100%" }}
             className="d-flex justify-content-center"
@@ -44,9 +59,10 @@ export default function Product() {
             <button
               className="btn btn-block btn-success"
               type="submit"
-              onClick={onAddCart}
+              onClick={handleActionWithRole}
             >
-              {!addCart ? "Add To Cart" : "Go To Cart"}
+              {(userRole?.role == USER_ROLE.MERCHANT && "Update") ||
+                (!addCart ? "Add To Cart" : "Go To Cart")}
             </button>
           </div>
         </CardBody>

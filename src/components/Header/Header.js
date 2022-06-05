@@ -19,15 +19,17 @@ import {
 import { NavLink, useHistory, NavLink as ActiveLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "store/user";
+import useFetchCategoryMerchant from "hook/useFetchCategoryMerchant";
 
 const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [categories] = useFetchCategoryMerchant();
 
   const authenticate = JSON.parse(localStorage.getItem("user"));
 
   const clickLogo = () => {
-    history.replace("/home");
+    history.replace("/");
   };
 
   const logoutUser = () => dispatch(logout());
@@ -53,7 +55,7 @@ const Header = () => {
               <Input placeholder="searching..." />
             </Col>
             <Col>
-              <Button onClick={() => history.push("/order-managerment")}>
+              <Button onClick={() => history.push("/order-management")}>
                 OrderManagement
               </Button>
             </Col>
@@ -79,7 +81,11 @@ const Header = () => {
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
-                <NavLink tag={ActiveLink} to="/home" activeClassName="active">
+                <NavLink
+                  tag={ActiveLink}
+                  to={`/product-management-merchant/${categories[0]?._id}`}
+                  activeClassName="active"
+                >
                   My Shop
                 </NavLink>
               </NavItem>
