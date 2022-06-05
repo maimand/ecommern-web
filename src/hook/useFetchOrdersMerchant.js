@@ -9,7 +9,6 @@ export default function useFetchOrdersMerchant() {
     try {
       setIsLoading(true);
       await http.get(`/api/order/merchant`).then((response) => {
-        console.log(response);
         setData(response.data);
         setIsLoading(false);
       });
