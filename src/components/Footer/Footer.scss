@@ -1,0 +1,92 @@
+@import "assets/scss/app.scss";
+
+.footer {
+  height: max-content;
+  width: 100%;
+  border-top: 1px solid #ababab;
+  padding: 10px 0px;
+
+  .footer-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 10px;
+
+    &-block {
+      border-left: 1px solid #dddddd;
+      padding-left: 5px;
+
+      .block-title {
+        color: #262626 !important;
+        font-family: Raleway, sans-serif;
+        font-size: 18px !important;
+        line-height: 1.5 !important;
+        text-transform: capitalize;
+      }
+
+      .block-content {
+        background: transparent;
+        border: 0;
+        font-size: 100%;
+        font-weight: 400;
+        margin: 0;
+        padding: 0;
+        vertical-align: baseline;
+
+        ul {
+          padding: 5px;
+
+          list-style: none;
+
+          .footer-link {
+            a {
+              color: #65676b;
+              text-decoration: none;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer-copyright {
+    margin-top: 10px;
+    color: #9a9a9a;
+  }
+
+  .footer-social {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0px 0px -15px;
+
+    li {
+      display: inline-block;
+
+      a {
+        .social-icon {
+          display: inline-block;
+          background-position: 50%;
+          background-repeat: no-repeat;
+          cursor: pointer;
+          height: 40px;
+          width: 40px;
+          background-size: 100%;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .facebook-icon {
+      background-image: url("../../assets/icons/facebook.svg");
+    }
+
+    .instagram-icon {
+      margin-left: 10px;
+      background-image: url("../../assets/icons/instagram.svg");
+    }
+  }
+}

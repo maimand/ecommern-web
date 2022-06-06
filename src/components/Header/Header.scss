@@ -1,0 +1,31 @@
+@import "assets/scss/app.scss";
+
+.header {
+  position: fixed;
+  z-index: 100;
+
+  background-color: #fff;
+  height: 70px;
+  margin: 0px;
+  padding: 10px 0px 5px 0px;
+  width: 100%;
+  border-bottom: 1px solid #575757;
+
+  .brand {
+    background-color: red;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &-link {
+    a {
+      color: black;
+      text-decoration: none;
+
+      &:hover {
+        color: #2b2b2b;
+      }
+    }
+  }
+}
