@@ -20,11 +20,13 @@ import { NavLink, useHistory, NavLink as ActiveLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "store/user";
 import useFetchCategoryMerchant from "hook/useFetchCategoryMerchant";
+import { getUser } from "core/localStore";
 
 const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [categories] = useFetchCategoryMerchant();
+  const user = getUser();
 
   const authenticate = JSON.parse(localStorage.getItem("user"));
 
@@ -54,11 +56,19 @@ const Header = () => {
             >
               <Input placeholder="searching..." />
             </Col>
-            <Col>
-              <Button onClick={() => history.push("/order-management")}>
-                OrderManagement
-              </Button>
-            </Col>
+            {user?.role === "ROLE_MERCHANT" ? (
+              <Col>
+                <Button onClick={() => history.push("/order-management")}>
+                  OrderManagement
+                </Button>
+              </Col>
+            ) : (
+              <Col>
+                <Button onClick={() => history.push("/order-management")}>
+                  Cart
+                </Button>
+              </Col>
+            )}
             <Col
               className="d-flex flex-row align-items-baseline justify-content-end inline-block"
               style={{ flex: "2" }}
