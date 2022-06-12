@@ -19,9 +19,7 @@ export default function OrderDetailMerchant() {
     setStateOrder(data?.status);
   }, []);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   const tableOrder = data?.cart?.products?.map((product, index) => {
     return (
@@ -38,7 +36,6 @@ export default function OrderDetailMerchant() {
   });
 
   const submit = () => {
-    console.log(stateOrder);
     http
       .put(`/api/order/${id[id.length - 1]}/status`, { status: stateOrder })
       .then((response) => {
