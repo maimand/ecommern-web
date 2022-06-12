@@ -4,7 +4,14 @@ import { useEffect, useState } from "react";
 
 export default function useFetchMenu() {
   const [isLoading, setIsLoading] = useState(false);
-  const [menu, setMenu] = useState([]);
+  const [menu, setMenu] = useState([
+    {
+      _id: "",
+      name: "",
+      slug: "",
+      subcategories: []
+    }
+  ]);
   [];
 
   const getProducts = async () => {

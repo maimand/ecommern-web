@@ -20,11 +20,32 @@ import { NavLink, useHistory, NavLink as ActiveLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "store/user";
 import useFetchCategoryMerchant from "hook/useFetchCategoryMerchant";
+import useFetchMenu from "hook/useFetchMenu";
 
 const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [categories] = useFetchCategoryMerchant();
+  const [menu] = useFetchMenu();
+
+  const renderMenu = menu?.map((item, index) => {
+    return (
+      <span key={index}>
+        <RenderMenuItem propClassName="menu-item" itemInfo={item} />
+        {item?.subcategories.map((sub, subindex) => {
+          console.log("data-sub: " + sub);
+
+          return (
+            <RenderMenuItem
+              propClassName="menu-item-sub"
+              itemInfo={sub}
+              key={subindex}
+            />
+          );
+        })}
+      </span>
+    );
+  });
 
   const authenticate = JSON.parse(localStorage.getItem("user"));
 
@@ -69,15 +90,7 @@ const Header = () => {
                   <span className="fa fa-chevron-down dropdown-caret"></span>
                 </DropdownToggle>
                 <DropdownMenu end>
-                  <DropdownItem onClick={function noRefCheck() {}}>
-                    Action 1
-                  </DropdownItem>
-                  <DropdownItem onClick={function noRefCheck() {}}>
-                    Action 2
-                  </DropdownItem>
-                  <DropdownItem onClick={function noRefCheck() {}}>
-                    Action 3
-                  </DropdownItem>
+                  <ul className="menu-items">{renderMenu}</ul>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
@@ -123,4 +136,12 @@ const Header = () => {
   );
 };
 
-export default Header;
+const RenderMenuItem = (props) => {
+  return (
+    <li className={` menu-hover ${props.propClassName}`}>
+      {props.itemInfo?.name}
+    </li>
+  );
+};
+
+export { Header, RenderMenuItem };
