@@ -13,6 +13,7 @@ import OrderManagement from "pages/OrderManagement/OrderManagement";
 import OrderDetailMerchant from "pages/OrderManagement/OrderDetail/OrderDetailMerchant";
 import ProductManagement from "pages/ProductManagement/ProductManagement";
 import UpdateProduct from "pages/ProductManagement/UpdateProduct/UpdateProduct";
+import ProductDetail from "pages/ProductDetail/ProductDetail";
 
 export const routeConfig = [
   {
@@ -75,6 +76,13 @@ export const routeConfig = [
     exact: true,
     component: UpdateProduct
   },
+  {
+    path: "/product-detail",
+    isPrivate: false,
+    exact: true,
+    component: ProductDetail
+  },
+
   { path: "*", component: Error }
 ];
 
