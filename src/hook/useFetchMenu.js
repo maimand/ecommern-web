@@ -18,7 +18,7 @@ export default function useFetchMenu() {
     try {
       setIsLoading(true);
 
-      await http.get("/api/category/list").then((response) => {
+      await http.get("/api/category/").then((response) => {
         setMenu(response.data);
         setIsLoading(false);
       });
