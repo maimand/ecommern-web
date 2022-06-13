@@ -53,6 +53,12 @@ export const routeConfig = [
     component: Home
   },
   {
+    path: "/:slug",
+    isPrivate: false,
+    exact: true,
+    component: Home
+  },
+  {
     path: "/order-management",
     isPrivate: true,
     exact: true,
