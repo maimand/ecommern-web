@@ -78,7 +78,6 @@ export const login = (values) => async (dispatch) => {
     if (!token) {
       pushToast("error", data?.message);
     } else if (data.success) {
-      console.log("12321");
       dispatch(loginSuccess({ user, token, rememberMe }));
     }
   } catch (e) {

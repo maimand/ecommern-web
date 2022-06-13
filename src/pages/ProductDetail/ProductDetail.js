@@ -1,58 +1,94 @@
+import { pushToast } from "components/Toast";
+import http from "core/services/httpService";
 import useFetchProductDetail from "hook/useFetchProductDetail";
 import MainLayout from "layout/MainLayout/MainLayout";
-import React from "react";
-import { FormGroup, Input, Label } from "reactstrap";
+import React, { useState } from "react";
+import { FormGroup, Input } from "reactstrap";
+import { setLoading } from "store/user";
 
 import "./ProductDetail.scss";
 
 const ProductDetail = () => {
-  const { product } = useFetchProductDetail("629afc70ad435844967a4f89");
-  console.log("product detail:  " + product);
+  const [productInfo] = useFetchProductDetail();
+  const [quantity, setQuantity] = useState(1);
+
+  let indents = [];
+  for (var i = 0; i < productInfo?.quantity; i++) {
+    indents.push(
+      <option className="indent" key={i}>
+        {i + 1}
+      </option>
+    );
+  }
+
+  const addToCart = async () => {
+    try {
+      setLoading(true);
+      const dataAddCart = [
+        {
+          product: productInfo._id,
+          quantity: 1,
+          price: productInfo.price,
+          merchant: productInfo.merchant
+        }
+      ];
+      dataAddCart[0].quantity = quantity;
+
+      const res = await http.post("/api/cart/add", { products: dataAddCart });
+
+      if (res.success) {
+        setLoading(false);
+        pushToast("success", res.message);
+      } else {
+        pushToast("error", res.message);
+      }
+    } catch (error) {
+      setLoading(false);
+      pushToast("error", error.message);
+    }
+  };
 
   return (
     <MainLayout>
-      <div>
-        <div className="row show-product">
-          <div className="col-md-4 bg-info">
-            <div className="show-product-img">
-              <img
-                src="http://res.cloudinary.com/ecommerce-dut/image/upload/v1654327333/Images/dsifgosqbhvxgp2ze9xc.jpg"
-                className="img"
-              />
-            </div>
-            <div>
-              <p>merchant</p>
-            </div>
+      <div className="row show-product">
+        <div className="col-md-4">
+          <div className="show-product-img">
+            <img src={productInfo?.imageUrl} className="img" />
           </div>
-          <div className="col-md-8 bg-primary">
-            <h1>Updatest</h1>
+          <div className="d-flex justify-content-center">
+            <h3>{productInfo?.merchant?.name}</h3>
+          </div>
+        </div>
+        <div className="col-md-8 show-product-info">
+          <h1>{productInfo?.name}</h1>
 
-            <p>
-              description description description description description
-              description description descriptiondescription description
-              description description description description description
-              description
-            </p>
-            <p>price: 11</p>
-            <FormGroup>
-              <Label for="exampleSelect">Select</Label>
-              <Input id="exampleSelect" name="select" type="select">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Input>
-            </FormGroup>
-
-            <div
-              style={{ width: "100%" }}
-              className="d-flex justify-content-center"
+          <p>{productInfo?.description}</p>
+          <p className="product-price">
+            {`Price: `}
+            <span>{` ${productInfo?.price} `}$</span>
+          </p>
+          <FormGroup className="product-quantity ">
+            <Input
+              id="exampleSelect d-inline"
+              onChange={(event) => setQuantity(event.target.value)}
+              name="select"
+              type="select"
             >
-              <button className="btn btn-block btn-success" type="submit">
-                Add To Cart
-              </button>
-            </div>
+              {indents}
+            </Input>
+          </FormGroup>
+
+          <div
+            style={{ width: "100%" }}
+            className="d-flex justify-content-center"
+          >
+            <button
+              className="btn btn-block btn-success"
+              onClick={addToCart}
+              type="submit"
+            >
+              Add To Cart
+            </button>
           </div>
         </div>
       </div>
