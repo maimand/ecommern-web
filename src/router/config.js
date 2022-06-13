@@ -83,7 +83,7 @@ export const routeConfig = [
     component: UpdateProduct
   },
   {
-    path: "/product-detail",
+    path: "/product-detail/:slug",
     isPrivate: false,
     exact: true,
     component: ProductDetail
