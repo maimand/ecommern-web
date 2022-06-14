@@ -20,7 +20,7 @@ export default function OderDetail() {
           <h2>History Order</h2>
           <button
             className="btn btn-danger"
-            onClick={() => history.push("/history")}
+            onClick={() => history.push("/user/history")}
           >
             Back
           </button>

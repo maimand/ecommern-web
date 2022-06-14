@@ -1,10 +1,17 @@
 import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function useFetchCategoryMerchant() {
+export default function useFetchMenu() {
   const [isLoading, setIsLoading] = useState(false);
-  const [categories, setSetCategories] = useState([]);
+  const [menu, setMenu] = useState([
+    {
+      _id: "",
+      name: "",
+      slug: "",
+      subcategories: []
+    }
+  ]);
   [];
 
   const getProducts = async () => {
@@ -12,7 +19,7 @@ export default function useFetchCategoryMerchant() {
       setIsLoading(true);
 
       await http.get("/api/category/").then((response) => {
-        setSetCategories(response.data);
+        setMenu(response.data);
         setIsLoading(false);
       });
     } catch (error) {
@@ -21,9 +28,9 @@ export default function useFetchCategoryMerchant() {
     }
   };
 
-  // useEffect(() => {
-  //   getProducts();
-  // }, []);
+  useEffect(() => {
+    getProducts();
+  }, []);
 
-  return [categories, getProducts, isLoading];
+  return [menu, isLoading];
 }

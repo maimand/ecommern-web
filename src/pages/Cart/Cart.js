@@ -11,6 +11,7 @@ export default function Cart() {
   const [checkedState, setCheckedState] = useState([]);
 
   useEffect(() => {
+    console.log("abc");
     setCheckedState(Array(carts.length).fill(false));
   }, [carts]);
 

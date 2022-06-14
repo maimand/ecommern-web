@@ -22,12 +22,36 @@ import { useDispatch } from "react-redux";
 import { logout } from "store/user";
 import useFetchCategoryMerchant from "hook/useFetchCategoryMerchant";
 import { getUser } from "core/localStore";
+import useFetchMenu from "hook/useFetchMenu";
 
 const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [categories, getProducts] = useFetchCategoryMerchant();
   const user = getUser();
+  const [menu] = useFetchMenu();
+
+  const renderMenu = menu?.map((item, index) => {
+    return (
+      <span key={index}>
+        <RenderMenuItem
+          propClassName="menu-item"
+          slug={item?.slug}
+          itemInfo={item}
+        />
+        {item?.subcategories.map((sub, subindex) => {
+          return (
+            <RenderMenuItem
+              propClassName="menu-item-sub"
+              itemInfo={sub}
+              key={subindex}
+              slug={sub?.slug}
+            />
+          );
+        })}
+      </span>
+    );
+  });
 
   const authenticate = JSON.parse(localStorage.getItem("user"));
 
@@ -70,28 +94,19 @@ const Header = () => {
             >
               <Button
                 className="cart-btn"
-                onClick={() => history.push("/cart")}
+                onClick={() => history.push("/user/cart")}
               >
                 <img className="cart-img" src={cart} alt="" />
               </Button>
               {user?.role === "ROLE_MERCHANT" && (
                 <>
-                  {" "}
                   <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav style={{ color: "#fff" }}>
+                    <DropdownToggle nav>
                       Categories
                       <span className="fa fa-chevron-down dropdown-caret"></span>
                     </DropdownToggle>
                     <DropdownMenu end>
-                      <DropdownItem onClick={function noRefCheck() {}}>
-                        Action 1
-                      </DropdownItem>
-                      <DropdownItem onClick={function noRefCheck() {}}>
-                        Action 2
-                      </DropdownItem>
-                      <DropdownItem onClick={function noRefCheck() {}}>
-                        Action 3
-                      </DropdownItem>
+                      <ul className="menu-items">{renderMenu}</ul>
                     </DropdownMenu>
                   </UncontrolledDropdown>
                   <NavItem>
@@ -106,7 +121,6 @@ const Header = () => {
                   </NavItem>
                 </>
               )}
-
               {authenticate ? (
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav style={{ color: "#fff" }}>
@@ -118,12 +132,12 @@ const Header = () => {
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem onClick={logoutUser}>Logout</DropdownItem>
-                    <DropdownItem onClick={() => history.push("./history")}>
+                    <DropdownItem onClick={() => history.push("/user/history")}>
                       History
                     </DropdownItem>
                     {user?.role === "ROLE_MERCHANT" && (
                       <DropdownItem
-                        onClick={() => history.push("/order-management")}
+                        onClick={() => history.push("/user/order-management")}
                       >
                         Order Merchant
                       </DropdownItem>
@@ -154,4 +168,17 @@ const Header = () => {
   );
 };
 
-export default Header;
+const RenderMenuItem = (props) => {
+  const history = useHistory();
+  const onClick = () => {
+    history.push(`/${props?.slug}`);
+  };
+
+  return (
+    <li onClick={onClick} className={` menu-hover ${props.propClassName}`}>
+      {props.itemInfo?.name}
+    </li>
+  );
+};
+
+export { Header, RenderMenuItem };

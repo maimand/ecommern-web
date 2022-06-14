@@ -10,7 +10,7 @@ export default function useFetchCart() {
   const getCart = async () => {
     try {
       setIsLoading(true);
-
+      console.log("abc");
       await http.get("/api/cart").then((response) => {
         setSetCategories(response.data);
         setIsLoading(false);
