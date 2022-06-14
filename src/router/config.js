@@ -13,6 +13,9 @@ import OrderManagement from "pages/OrderManagement/OrderManagement";
 import OrderDetailMerchant from "pages/OrderManagement/OrderDetail/OrderDetailMerchant";
 import ProductManagement from "pages/ProductManagement/ProductManagement";
 import UpdateProduct from "pages/ProductManagement/UpdateProduct/UpdateProduct";
+import Cart from "pages/Cart/Cart";
+import HIstory from "pages/History/History";
+import OderDetail from "pages/History/OderDetail/OderDetail";
 
 export const routeConfig = [
   {
@@ -74,6 +77,24 @@ export const routeConfig = [
     isPrivate: true,
     exact: true,
     component: UpdateProduct
+  },
+  {
+    path: "/order-history/:id",
+    isPrivate: true,
+    exact: true,
+    component: OderDetail
+  },
+  {
+    path: "/cart",
+    isPrivate: true,
+    exact: true,
+    component: Cart
+  },
+  {
+    path: "/history",
+    isPrivate: true,
+    exact: true,
+    component: HIstory
   },
   { path: "*", component: Error }
 ];

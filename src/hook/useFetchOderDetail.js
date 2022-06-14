@@ -2,17 +2,16 @@ import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
 import { useState } from "react";
 
-export default function useFetchCategoryMerchant() {
+export default function useFetchOderDetail() {
   const [isLoading, setIsLoading] = useState(false);
-  const [categories, setSetCategories] = useState([]);
+  const [order, setOrder] = useState([]);
   [];
 
-  const getProducts = async () => {
+  const getOrderHistory = async (id) => {
     try {
       setIsLoading(true);
-
-      await http.get("/api/merchant/categories").then((response) => {
-        setSetCategories(response.data);
+      await http.get(`/api/order/${id}`).then((response) => {
+        setOrder(response.data);
         setIsLoading(false);
       });
     } catch (error) {
@@ -21,9 +20,5 @@ export default function useFetchCategoryMerchant() {
     }
   };
 
-  // useEffect(() => {
-  //   getProducts();
-  // }, []);
-
-  return [categories, getProducts, isLoading];
+  return [order, getOrderHistory, isLoading];
 }

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Header.scss";
 import logo from "../../assets/images/logo.png";
+import cart from "../../assets/images/cart.svg";
 
 import {
   Container,
@@ -25,10 +26,16 @@ import { getUser } from "core/localStore";
 const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [categories] = useFetchCategoryMerchant();
+  const [categories, getProducts] = useFetchCategoryMerchant();
   const user = getUser();
 
   const authenticate = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    if (user?.role === "ROLE_MERCHANT") {
+      getProducts();
+    }
+  }, []);
 
   const clickLogo = () => {
     history.replace("/");
@@ -56,57 +63,71 @@ const Header = () => {
             >
               <Input placeholder="searching..." />
             </Col>
-            {user?.role === "ROLE_MERCHANT" ? (
-              <Col>
-                <Button onClick={() => history.push("/order-management")}>
-                  OrderManagement
-                </Button>
-              </Col>
-            ) : (
-              <Col>
-                <Button onClick={() => history.push("/order-management")}>
-                  Cart
-                </Button>
-              </Col>
-            )}
+
             <Col
               className="d-flex flex-row align-items-baseline justify-content-end inline-block"
               style={{ flex: "2" }}
             >
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav>
-                  Categories
-                  <span className="fa fa-chevron-down dropdown-caret"></span>
-                </DropdownToggle>
-                <DropdownMenu end>
-                  <DropdownItem onClick={function noRefCheck() {}}>
-                    Action 1
-                  </DropdownItem>
-                  <DropdownItem onClick={function noRefCheck() {}}>
-                    Action 2
-                  </DropdownItem>
-                  <DropdownItem onClick={function noRefCheck() {}}>
-                    Action 3
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <NavItem>
-                <NavLink
-                  tag={ActiveLink}
-                  to={`/product-management-merchant/${categories[0]?._id}`}
-                  activeClassName="active"
-                >
-                  My Shop
-                </NavLink>
-              </NavItem>
+              <Button
+                className="cart-btn"
+                onClick={() => history.push("/cart")}
+              >
+                <img className="cart-img" src={cart} alt="" />
+              </Button>
+              {user?.role === "ROLE_MERCHANT" && (
+                <>
+                  {" "}
+                  <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav style={{ color: "#fff" }}>
+                      Categories
+                      <span className="fa fa-chevron-down dropdown-caret"></span>
+                    </DropdownToggle>
+                    <DropdownMenu end>
+                      <DropdownItem onClick={function noRefCheck() {}}>
+                        Action 1
+                      </DropdownItem>
+                      <DropdownItem onClick={function noRefCheck() {}}>
+                        Action 2
+                      </DropdownItem>
+                      <DropdownItem onClick={function noRefCheck() {}}>
+                        Action 3
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                  <NavItem>
+                    <NavLink
+                      tag={ActiveLink}
+                      to={`/product-management-merchant/${categories[0]?._id}`}
+                      activeClassName="active"
+                      style={{ color: "#fff" }}
+                    >
+                      My Shop
+                    </NavLink>
+                  </NavItem>
+                </>
+              )}
+
               {authenticate ? (
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav>
+                  <DropdownToggle nav style={{ color: "#fff" }}>
                     {authenticate.lastName || "User"}
-                    <span className="fa fa-chevron-down dropdown-caret"></span>
+                    <span
+                      className="fa fa-chevron-down dropdown-caret"
+                      style={{ marginLeft: "10px" }}
+                    ></span>
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem onClick={logoutUser}>Logout</DropdownItem>
+                    <DropdownItem onClick={() => history.push("./history")}>
+                      History
+                    </DropdownItem>
+                    {user?.role === "ROLE_MERCHANT" && (
+                      <DropdownItem
+                        onClick={() => history.push("/order-management")}
+                      >
+                        Order Merchant
+                      </DropdownItem>
+                    )}
                   </DropdownMenu>
                 </UncontrolledDropdown>
               ) : (
