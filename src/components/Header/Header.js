@@ -124,7 +124,7 @@ const Header = () => {
               {authenticate ? (
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav style={{ color: "#fff" }}>
-                    {authenticate.lastName || "User"}
+                    {authenticate?.firstName || "User"}
                     <span
                       className="fa fa-chevron-down dropdown-caret"
                       style={{ marginLeft: "10px" }}
