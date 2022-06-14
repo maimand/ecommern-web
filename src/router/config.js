@@ -13,6 +13,9 @@ import OrderManagement from "pages/OrderManagement/OrderManagement";
 import OrderDetailMerchant from "pages/OrderManagement/OrderDetail/OrderDetailMerchant";
 import ProductManagement from "pages/ProductManagement/ProductManagement";
 import UpdateProduct from "pages/ProductManagement/UpdateProduct/UpdateProduct";
+import Cart from "pages/Cart/Cart";
+import HIstory from "pages/History/History";
+import OderDetail from "pages/History/OderDetail/OderDetail";
 import ProductDetail from "pages/ProductDetail/ProductDetail";
 
 export const routeConfig = [
@@ -21,6 +24,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: SignUp
+  },
+  {
+    path: "/user/cart",
+    isPrivate: true,
+    exact: true,
+    component: Cart
   },
   {
     path: "/verify-email",
@@ -47,19 +56,13 @@ export const routeConfig = [
     component: UpdatePassWord
   },
   {
-    path: "/",
-    isPrivate: false,
-    exact: true,
-    component: Home
-  },
-  {
     path: "/:slug",
     isPrivate: false,
     exact: true,
     component: Home
   },
   {
-    path: "/order-management",
+    path: "/user/order-management",
     isPrivate: true,
     exact: true,
     component: OrderManagement
@@ -83,10 +86,28 @@ export const routeConfig = [
     component: UpdateProduct
   },
   {
+    path: "/order-history/:id",
+    isPrivate: true,
+    exact: true,
+    component: OderDetail
+  },
+  {
+    path: "/user/history",
+    isPrivate: true,
+    exact: true,
+    component: HIstory
+  },
+  {
     path: "/product-detail/:slug",
     isPrivate: false,
     exact: true,
     component: ProductDetail
+  },
+  {
+    path: "/",
+    isPrivate: false,
+    exact: true,
+    component: Home
   },
 
   { path: "*", component: Error }
