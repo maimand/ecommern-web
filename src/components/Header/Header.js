@@ -98,29 +98,27 @@ const Header = () => {
               >
                 <img className="cart-img " src={Cart} alt="" />
               </Button>
-              {user?.role === "ROLE_MERCHANT" && (
-                <>
-                  <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle className="text-white" nav>
-                      Categories
-                      <span className="fa fa-chevron-down dropdown-caret"></span>
-                    </DropdownToggle>
-                    <DropdownMenu end>
-                      <ul className="menu-items">{renderMenu}</ul>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                  <NavItem>
-                    <NavLink
-                      tag={ActiveLink}
-                      to={`/product-management-merchant/${categories[0]?._id}`}
-                      activeClassName="active"
-                      style={{ color: "#fff" }}
-                    >
-                      My Shop
-                    </NavLink>
-                  </NavItem>
-                </>
-              )}
+              <>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle className="text-white" nav>
+                    Categories
+                    <span className="fa fa-chevron-down dropdown-caret"></span>
+                  </DropdownToggle>
+                  <DropdownMenu end>
+                    <ul className="menu-items">{renderMenu}</ul>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                <NavItem>
+                  <NavLink
+                    tag={ActiveLink}
+                    to={`/product-management-merchant/${categories[0]?._id}`}
+                    activeClassName="active"
+                    style={{ color: "#fff" }}
+                  >
+                    My Shop
+                  </NavLink>
+                </NavItem>
+              </>
               {authenticate ? (
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav style={{ color: "#fff" }}>
