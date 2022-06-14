@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AuthLayout from "layout/AuthLayout/AuthLayout";
 import "./SignUp.scss";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import http from "core/services/httpService";
 import Loading from "components/Loading/Loading";
@@ -10,7 +10,7 @@ import { pushToast } from "components/Toast";
 import { useFormik } from "formik";
 
 const SignUp = () => {
-  // let history = useHistory();
+  let history = useHistory();
   const [isShow, setIsShow] = useState(false);
   const [isShowConfirm, setIsShowConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -66,7 +66,7 @@ const SignUp = () => {
 
                 pushToast("success", response?.message);
                 // localStorage.setItem("email", values.email);
-                // history.push("/login", { email: values.email });
+                history.push("/login");
               } else {
                 pushToast("error", response?.message);
                 values.password = "";
