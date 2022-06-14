@@ -23,6 +23,7 @@ import { logout } from "store/user";
 import useFetchCategoryMerchant from "hook/useFetchCategoryMerchant";
 import { getUser } from "core/localStore";
 import useFetchMenu from "hook/useFetchMenu";
+import { USER_ROLE } from "core/constants";
 
 const Header = () => {
   const history = useHistory();
@@ -108,16 +109,18 @@ const Header = () => {
                     <ul className="menu-items">{renderMenu}</ul>
                   </DropdownMenu>
                 </UncontrolledDropdown>
-                <NavItem>
-                  <NavLink
-                    tag={ActiveLink}
-                    to={`/product-management-merchant/${categories[0]?._id}`}
-                    activeClassName="active"
-                    style={{ color: "#fff" }}
-                  >
-                    My Shop
-                  </NavLink>
-                </NavItem>
+                {authenticate?.role === USER_ROLE.MERCHANT && (
+                  <NavItem>
+                    <NavLink
+                      tag={ActiveLink}
+                      to={`/product-management-merchant/${categories[0]?._id}`}
+                      activeClassName="active"
+                      style={{ color: "#fff" }}
+                    >
+                      My Shop
+                    </NavLink>
+                  </NavItem>
+                )}
               </>
               {authenticate ? (
                 <UncontrolledDropdown nav inNavbar>
