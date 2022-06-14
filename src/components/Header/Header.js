@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./Header.scss";
-import logo from "../../assets/images/logo.png";
-import cart from "../../assets/images/cart.svg";
+import logo from "../../assets/images/brand-logo.svg";
+import Cart from "../../assets/images/cart-icon.webp";
 
 import {
   Container,
@@ -82,7 +82,7 @@ const Header = () => {
               </NavbarBrand>
             </Col>
             <Col
-              className="d-inline-block "
+              className="d-inline-block mt-2"
               style={{ width: "40%", flex: "3" }}
             >
               <Input placeholder="searching..." />
@@ -96,12 +96,12 @@ const Header = () => {
                 className="cart-btn"
                 onClick={() => history.push("/user/cart")}
               >
-                <img className="cart-img" src={cart} alt="" />
+                <img className="cart-img " src={Cart} alt="" />
               </Button>
               {user?.role === "ROLE_MERCHANT" && (
                 <>
                   <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav>
+                    <DropdownToggle className="text-white" nav>
                       Categories
                       <span className="fa fa-chevron-down dropdown-caret"></span>
                     </DropdownToggle>

@@ -5,12 +5,14 @@
   z-index: 100;
   color: #fff !important;
   background-color: #0b79c1;
-  height: 70px;
+  height: max-content;
+  max-height: 97px;
   margin: 0px;
   padding: 10px 0px 5px 0px;
   width: 100%;
   border-bottom: 1px solid #575757;
   z-index: 100;
+
   .cart-btn {
     background-color: #fff;
     width: 50px;
@@ -18,10 +20,12 @@
     margin-right: 50px;
     padding: unset !important;
     background-color: #0b79c1;
+
     &:hover {
       background-color: #418bbc;
       cursor: pointer;
     }
+
     .cart-img {
       height: 150%;
       &:hover {
@@ -35,12 +39,11 @@
       cursor: pointer;
     }
     .logo {
-      height: 50px;
-      top: -10px;
+      top: 5px;
       margin-left: -20px;
       position: absolute;
-      height: 70px;
-      width: 200px;
+      height: 65px;
+      width: 150px;
     }
   }
 

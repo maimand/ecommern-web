@@ -1,6 +1,6 @@
 import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function useFetchCategoryMerchant() {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,9 +21,9 @@ export default function useFetchCategoryMerchant() {
     }
   };
 
-  // useEffect(() => {
-  //   getProducts();
-  // }, []);
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   return [categories, getProducts, isLoading];
 }

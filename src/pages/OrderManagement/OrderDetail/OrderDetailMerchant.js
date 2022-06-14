@@ -40,7 +40,7 @@ export default function OrderDetailMerchant() {
       .put(`/api/order/${id[id.length - 1]}/status`, { status: stateOrder })
       .then((response) => {
         pushToast("success", response.message);
-        history.push("/order-management");
+        history.push("/user/order-management");
       })
       .catch((error) => {
         pushToast("error", error.message);
