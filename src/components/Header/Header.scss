@@ -4,7 +4,7 @@
   position: fixed;
   z-index: 100;
   color: #fff !important;
-  background-color: #0b79c1;
+  background-color: rgb(26, 148, 255);
   height: max-content;
   max-height: 97px;
   margin: 0px;
@@ -19,15 +19,16 @@
     border: none;
     margin-right: 50px;
     padding: unset !important;
-    background-color: #0b79c1;
+    background-color: rgb(26, 148, 255);
 
     &:hover {
-      background-color: #418bbc;
       cursor: pointer;
+      background-color: rgb(26, 148, 255);
     }
 
     .cart-img {
       height: 150%;
+
       &:hover {
         cursor: pointer;
       }

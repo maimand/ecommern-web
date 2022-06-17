@@ -1,10 +1,12 @@
-import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
 import { useEffect, useState } from "react";
-export default function useFetProductMerchant(categoryId) {
+import { useParams } from "react-router-dom";
+
+export default function useFetProductMerchant() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [isReload, setIsReload] = useState(0);
+  const { categoryId } = useParams();
+  const [categoryIdRQ, setCategoryIdRQ] = useState(categoryId);
 
   const getProducts = async (categoryId) => {
     try {
@@ -18,13 +20,12 @@ export default function useFetProductMerchant(categoryId) {
         });
     } catch (error) {
       setIsLoading(false);
-      pushToast("error", error.message);
     }
   };
 
   useEffect(() => {
-    getProducts(categoryId);
-  }, [isReload]);
+    getProducts(categoryIdRQ);
+  }, [categoryIdRQ]);
 
-  return [data, isReload, setIsReload, isLoading];
+  return [data, setCategoryIdRQ, isLoading];
 }
