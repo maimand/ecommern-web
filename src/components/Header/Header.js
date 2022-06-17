@@ -90,41 +90,49 @@ const Header = () => {
             </Col>
 
             <Col
-              className="d-flex flex-row align-items-baseline justify-content-end inline-block"
+              className="d-flex flex-row align-items-baseline justify-content-end"
               style={{ flex: "2" }}
             >
               <Button
                 className="cart-btn"
                 onClick={() => history.push("/user/cart")}
               >
-                <img className="cart-img " src={Cart} alt="" />
+                <img className="cart-img" src={Cart} alt="" />
               </Button>
-              <>
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle className="text-white" nav>
-                    Categories
-                    <span className="fa fa-chevron-down dropdown-caret"></span>
-                  </DropdownToggle>
-                  <DropdownMenu end>
-                    <ul className="menu-items">{renderMenu}</ul>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-                {authenticate?.role === USER_ROLE.MERCHANT && (
-                  <NavItem>
-                    <NavLink
-                      tag={ActiveLink}
-                      to={`/product-management-merchant/${categories[0]?._id}`}
-                      activeClassName="active"
-                      style={{ color: "#fff" }}
-                    >
-                      My Shop
-                    </NavLink>
-                  </NavItem>
-                )}
-              </>
+              <UncontrolledDropdown className="d-inline-block" nav inNavbar>
+                <DropdownToggle
+                  className="text-white"
+                  style={{ width: "max-content" }}
+                  nav
+                >
+                  Categories
+                  <span className="p-1 d-inline-block fa fa-chevron-down dropdown-caret"></span>
+                </DropdownToggle>
+                <DropdownMenu end>
+                  <ul className="menu-items">{renderMenu}</ul>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              {authenticate?.role === USER_ROLE.MERCHANT && (
+                <NavItem style={{ width: "70px" }}>
+                  <NavLink
+                    tag={ActiveLink}
+                    to={`/product-management-merchant/${categories[0]?._id}`}
+                    activeClassName="active"
+                    style={{ color: "#fff" }}
+                  >
+                    My Shop
+                  </NavLink>
+                </NavItem>
+              )}
               {authenticate ? (
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav style={{ color: "#fff" }}>
+                  <DropdownToggle
+                    nav
+                    style={{
+                      color: "#fff",
+                      width: "max-content"
+                    }}
+                  >
                     {authenticate?.firstName || "User"}
                     <span
                       className="fa fa-chevron-down dropdown-caret"
