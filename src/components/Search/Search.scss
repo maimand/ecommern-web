@@ -1,0 +1,35 @@
+@import "assets/scss/app.scss";
+.search-box {
+  .search-container {
+    position: absolute;
+    left: 2%;
+    top: 95%;
+
+    width: 96%;
+    max-height: 400px;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-y: auto;
+    border: 1px solid yellow;
+    background-color: white;
+
+    .search-item {
+      padding: 15px 0px;
+      color: black;
+      margin-bottom: 5px;
+
+      background-color: violet;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+
+      transision: 0.3s;
+
+      &:hover {
+        background-color: rgba(26, 148, 253, 0.3);
+        transision: 0.3s;
+      }
+    }
+  }
+}
