@@ -18,6 +18,7 @@ import HIstory from "pages/History/History";
 import OderDetail from "pages/History/OderDetail/OderDetail";
 import ProductDetail from "pages/ProductDetail/ProductDetail";
 import RequestMechant from "pages/RequestMerchant/RequestMechant";
+import AddProduct from "pages/ProductManagement/AddProduct/AddProduct";
 
 export const routeConfig = [
   {
@@ -105,6 +106,12 @@ export const routeConfig = [
     component: HIstory
   },
   {
+    path: "/merchant/add-product",
+    isPrivate: true,
+    exact: true,
+    component: AddProduct
+  },
+  {
     path: "/product-detail/:slug",
     isPrivate: false,
     exact: true,
@@ -116,7 +123,6 @@ export const routeConfig = [
     exact: true,
     component: Home
   },
-
   { path: "*", component: Error }
 ];
 

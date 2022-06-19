@@ -14,8 +14,11 @@ function SearchItem(props) {
       className="search-item d-flex justify-content-between"
       onClick={onclick}
     >
-      <div>{product.name}</div>
-      <div>{`${product.price} $`}</div>
+      <div className="search-item-img">
+        <img className="img" src={product.imageUrl} />
+      </div>
+      <div className="search-item-name">{product.name}</div>
+      <div className="search-item-price">{`${product.price} $`}</div>
     </div>
   );
 }

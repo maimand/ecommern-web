@@ -62,6 +62,14 @@ const ProductManagement = () => {
             {showListCategories}
           </ul>
         </div>
+        <button
+          className="btn btn-info mb-4"
+          onClick={() => {
+            history.push("/merchant/add-product");
+          }}
+        >
+          Add product
+        </button>
         <CardGroup className="product">
           {data.length == 0 ? (
             <NoContent>NO PRODUCT</NoContent>
