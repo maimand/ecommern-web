@@ -1,15 +1,17 @@
+import Loading from "components/Loading/Loading";
 import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
-import useFetchCategoryMerchantAdd from "hook/useFetchCategoryMerchantAdd";
 import MainLayout from "layout/MainLayout/MainLayout";
 import React, { useState } from "react";
-import { Input, Label } from "reactstrap";
-import { setLoading } from "store/user";
+import { useHistory, useParams } from "react-router-dom";
+import { Label } from "reactstrap";
 import "./AddProduct.scss";
 
 const AddProduct = () => {
-  const [categories] = useFetchCategoryMerchantAdd();
-  const [subCategoryId, setSubCategoryId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { subCategoryId } = useParams();
+  const history = useHistory();
+
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -19,26 +21,8 @@ const AddProduct = () => {
     image: ""
   });
 
-  const handleChange = (event) => {
-    const index = event.target.selectedIndex;
-    const optionElement = event.target.childNodes[index];
-    const optionElementId = optionElement.getAttribute("id");
-
-    setData({ ...data, subcategory: event.target.value });
-    setSubCategoryId(optionElementId);
-  };
-
-  let indents = [];
-  for (var i = 0; i < categories?.length; i++) {
-    indents.push(
-      <option className="indent" key={i} id={categories[i]?._id}>
-        {categories[i]?.name}
-      </option>
-    );
-  }
-
   const handleSubmit = async () => {
-    setLoading(true);
+    setIsLoading(true);
 
     var bodyFormData = new FormData();
     bodyFormData.append("name", data.name);
@@ -51,19 +35,20 @@ const AddProduct = () => {
     await http
       .post(`/api/product/add`, bodyFormData)
       .then(function (response) {
-        setLoading(false);
+        setIsLoading(false);
         pushToast("success", response?.message);
 
         history.push("/");
       })
       .catch(function (response) {
-        setLoading(false);
+        setIsLoading(false);
         pushToast("error", response?.message);
       });
   };
 
   return (
     <MainLayout>
+      <Loading visible={isLoading} />
       <div className="update-product">
         <h2>Add Product</h2>
         <div>
@@ -95,19 +80,7 @@ const AddProduct = () => {
               onChange={(e) => setData({ ...data, quantity: e.target.value })}
             />
           </div>
-          <div className="update-feild">
-            <Label for="subcategory">Subcategories</Label>
-            <Input
-              id="subcategory"
-              type="select"
-              name="select"
-              className="item"
-              value={data?.subcategory}
-              onChange={handleChange}
-            >
-              {indents}
-            </Input>
-          </div>
+
           <div className="update-feild">
             <Label for="price">price</Label>
             <input

@@ -137,6 +137,11 @@ const Header = () => {
                     <DropdownItem onClick={() => history.push("/user/history")}>
                       History
                     </DropdownItem>
+                    <DropdownItem
+                      onClick={() => history.push("/reset-password")}
+                    >
+                      Update password
+                    </DropdownItem>
 
                     {user?.role === "ROLE_MERCHANT" ? (
                       <DropdownItem
