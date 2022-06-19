@@ -1,4 +1,3 @@
-import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -39,13 +38,12 @@ export default function useFetchProductDetail() {
       });
     } catch (error) {
       setIsLoading(false);
-      pushToast("error", error.message);
     }
   };
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [slug]);
 
   return [productInfo, isLoading];
 }

@@ -1,3 +1,4 @@
+import NoContent from "components/NoContent/NoContent";
 import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
 import useFetchProductDetail from "hook/useFetchProductDetail";
@@ -50,48 +51,52 @@ const ProductDetail = () => {
 
   return (
     <MainLayout>
-      <div className="row show-product">
-        <div className="col-md-4">
-          <div className="show-product-img">
-            <img src={productInfo?.imageUrl} className="img" />
+      {!productInfo ? (
+        <NoContent>No Product</NoContent>
+      ) : (
+        <div className="row show-product">
+          <div className="col-md-4">
+            <div className="show-product-img">
+              <img src={productInfo?.imageUrl} className="img" />
+            </div>
+            <div className="d-flex justify-content-center">
+              <h3>{productInfo?.merchant?.name}</h3>
+            </div>
           </div>
-          <div className="d-flex justify-content-center">
-            <h3>{productInfo?.merchant?.name}</h3>
+          <div className="col-md-8 show-product-info">
+            <h1>{productInfo?.name}</h1>
+
+            <p>{productInfo?.description}</p>
+            <p className="product-price">
+              {`Price: `}
+              <span>{` ${productInfo?.price} `}$</span>
+            </p>
+            <FormGroup className="product-quantity ">
+              <Input
+                id="exampleSelect d-inline"
+                onChange={(event) => setQuantity(event.target.value)}
+                name="select"
+                type="select"
+              >
+                {indents}
+              </Input>
+            </FormGroup>
+
+            <div
+              style={{ width: "100%" }}
+              className="d-flex justify-content-center"
+            >
+              <button
+                className="btn btn-block btn-success"
+                onClick={addToCart}
+                type="submit"
+              >
+                Add To Cart
+              </button>
+            </div>
           </div>
         </div>
-        <div className="col-md-8 show-product-info">
-          <h1>{productInfo?.name}</h1>
-
-          <p>{productInfo?.description}</p>
-          <p className="product-price">
-            {`Price: `}
-            <span>{` ${productInfo?.price} `}$</span>
-          </p>
-          <FormGroup className="product-quantity ">
-            <Input
-              id="exampleSelect d-inline"
-              onChange={(event) => setQuantity(event.target.value)}
-              name="select"
-              type="select"
-            >
-              {indents}
-            </Input>
-          </FormGroup>
-
-          <div
-            style={{ width: "100%" }}
-            className="d-flex justify-content-center"
-          >
-            <button
-              className="btn btn-block btn-success"
-              onClick={addToCart}
-              type="submit"
-            >
-              Add To Cart
-            </button>
-          </div>
-        </div>
-      </div>
+      )}
     </MainLayout>
   );
 };
