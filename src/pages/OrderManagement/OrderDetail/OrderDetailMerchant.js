@@ -28,6 +28,9 @@ export default function OrderDetailMerchant() {
           {index}
         </th>
         <td>{product?.product?.name}</td>
+        <td>
+          <img src={product?.product?.imageUrl} style={{ height: "80px" }} />
+        </td>
         <td>{product?.quantity}</td>
         <td>{product?.purchasePrice}</td>
         <td>{product?.totalPrice}</td>
@@ -86,6 +89,7 @@ export default function OrderDetailMerchant() {
               <tr style={{ backgroundColor: "#0B79C1", color: "#fff" }}>
                 <th>Stt</th>
                 <th>Name Product</th>
+                <th>Image</th>
                 <th>Quantity</th>
                 <th>Purchase Price</th>
                 <th>Total Price</th>
@@ -96,8 +100,7 @@ export default function OrderDetailMerchant() {
         </div>
         <div className="infor">
           <div className="item">
-            {" "}
-            <h6>User Name:</h6>{" "}
+            <h6>User Name:</h6>
             {data?.user?.firstName + " " + data?.user?.lastName}
           </div>
           <div className="item">

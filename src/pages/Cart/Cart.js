@@ -1,4 +1,4 @@
-// /* eslint-disable*/
+/* eslint-disable*/
 import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
 import useFetchCart from "hook/useFetchCart";
@@ -16,6 +16,7 @@ export default function Cart() {
     total: 0,
     idCart: ""
   });
+
   const [order, setOrder] = useState({});
   const [isPayPal, setisPayPal] = useState(false);
   const [infoPayment, setinfoPayment] = useState({
@@ -136,6 +137,7 @@ export default function Cart() {
                     <tr style={{ backgroundColor: "#0B79C1", color: "#fff" }}>
                       <th>Stt</th>
                       <th>Product</th>
+                      <th>Image</th>
                       <th>Price</th>
                       <th>Quantity</th>
                       <th>Total</th>
@@ -149,6 +151,12 @@ export default function Cart() {
                           {i}
                         </th>
                         <td>{product?.product?.name}</td>
+                        <td>
+                          <img
+                            src={product?.product?.imageUrl}
+                            style={{ height: "80px" }}
+                          />
+                        </td>
                         <td>{product?.product?.price}</td>
                         <td>{product?.quantity}</td>
                         <td>{product?.totalPrice}</td>
