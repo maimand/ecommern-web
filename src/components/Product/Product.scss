@@ -3,6 +3,7 @@
 .card-wrapper {
   cursor: pointer;
   margin-bottom: 10px;
+  box-sizing: border-box;
 
   &-content {
     .card-img {
@@ -14,8 +15,9 @@
   }
 
   .card {
-    max-width: 230px;
-    max-height: 400px;
+    box-sizing: border-box;
+    width: 215px;
+    height: 370px;
 
     .card-body {
       .card-text {

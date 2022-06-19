@@ -4,14 +4,13 @@ import useFetchOrderDetailMerchant from "hook/useFetchOrderDetailMerchant";
 import MainLayout from "layout/MainLayout/MainLayout";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Table } from "reactstrap";
+import { Input, Table } from "reactstrap";
 import "./OrderDetailMerchant.scss";
 
 export default function OrderDetailMerchant() {
-  const [stateOrder, setStateOrder] = useState("PROCESSING");
-
   const history = useHistory();
   const [data, getOrderDetail] = useFetchOrderDetailMerchant();
+  const [stateOrder, setStateOrder] = useState(data?.status);
   const id = window.location.href.split("/");
 
   useEffect(() => {
@@ -43,7 +42,6 @@ export default function OrderDetailMerchant() {
       .put(`/api/order/${id[id.length - 1]}/status`, { status: stateOrder })
       .then((response) => {
         pushToast("success", response.message);
-        history.push("/user/order-management");
       })
       .catch((error) => {
         pushToast("error", error.message);
@@ -54,19 +52,27 @@ export default function OrderDetailMerchant() {
     <MainLayout>
       <div className="overview-category">
         <div className="merchant-header">
-          <h2>Manager Order</h2>
+          <h2>Order Details</h2>
           <div className="action">
-            <select
-              className="form-select"
-              aria-label="Default select example"
+            <Input
+              name="select"
+              type="select"
               value={stateOrder}
-              disabled={data?.status === "CANCEL"}
-              onChange={(e) => setStateOrder(e.target.value)}
+              disabled={
+                data?.status === "CANCEL" || data?.status === "RECEIVED"
+                  ? true
+                  : false
+              }
+              onChange={(event) => {
+                setStateOrder(event.target.value);
+              }}
             >
               <option value="PROCESSING">PROCESSING</option>
               <option value="DELIVERING">DELIVERING</option>
+              <option value="RECEIVED">RECEIVED</option>
               <option value="CANCEL">CANCEL</option>
-            </select>
+              <option value="NOT_PROCESS">NOT_PROCESS</option>
+            </Input>
             <button
               disabled={data?.status === "CANCEL"}
               className="btn btn-success"
@@ -75,10 +81,7 @@ export default function OrderDetailMerchant() {
             >
               Save
             </button>
-            <button
-              className="btn btn-danger"
-              onClick={() => history.push("/order-management")}
-            >
+            <button className="btn btn-danger" onClick={() => history.goBack()}>
               Cancel
             </button>
           </div>

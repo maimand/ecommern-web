@@ -1,4 +1,5 @@
 /* eslint-disable*/
+import Loading from "components/Loading/Loading";
 import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
 import useFetchCart from "hook/useFetchCart";
@@ -10,6 +11,7 @@ import "./Cart.scss";
 import PaypalButton from "./Paypal";
 
 export default function Cart() {
+  const [isLoading, setIsLoading] = useState();
   const [carts, getCarts] = useFetchCart();
   const [payment, setPayment] = useState({
     isPayment: false,
@@ -49,12 +51,24 @@ export default function Cart() {
         phoneNumber: infoPayment.phoneNUmber,
         payment: "PAYPAL"
       })
-      .then((response) => {
+      .then(async (response) => {
         pushToast("success", response.message);
-        history.push("/");
+
+        try {
+          setIsLoading(true);
+          await http.put(`/api/order/${order._id}/status`, {
+            paymentStatus: "PAID"
+          });
+          setIsLoading(false);
+        } catch (e) {
+          setIsLoading(false);
+        }
+
+        history.push("/user/history");
         // settotapProceed(total);
       })
       .catch((error) => {
+        setIsLoading(false);
         pushToast("error", error.message);
       });
     history.push("/");
@@ -116,6 +130,7 @@ export default function Cart() {
   };
   return (
     <MainLayout>
+      <Loading visible={isLoading} />
       <div className="overview-category">
         <div className="merchant-header">
           <h2>Cart</h2>
@@ -130,7 +145,12 @@ export default function Cart() {
             carts?.map((cart, index) => (
               <div key={index} className="cart-table">
                 <div className="cart-table-header">
-                  <h6>{cart?.merchant?.name + ": " + cart?.total}</h6>
+                  <h6 style={{ fontSize: "22px", fontWeight: "bold" }}>
+                    {cart?.merchant?.name}
+                  </h6>
+                  <p
+                    style={{ fontSize: "18px" }}
+                  >{`Total Amount: $${cart?.total}`}</p>
                 </div>
                 <Table bordered>
                   <thead>
@@ -148,7 +168,7 @@ export default function Cart() {
                     {cart?.products.map((product, i) => (
                       <tr key={i}>
                         <th scope="row" style={{ textAlign: "center" }}>
-                          {i}
+                          {i + 1}
                         </th>
                         <td>{product?.product?.name}</td>
                         <td>

@@ -13,8 +13,9 @@ export default function OrderManagement() {
     return (
       <tr key={index}>
         <th scope="row" style={{ textAlign: "center" }}>
-          {index}
+          {index + 1}
         </th>
+        <td>{order?._id}</td>
         <td>{order?.cart?.products.length}</td>
         <td>{order?.cart?.total}</td>
         <td className={order?.paymentStatus === "PAID" && "text-success"}>
@@ -55,6 +56,7 @@ export default function OrderManagement() {
             <thead>
               <tr style={{ backgroundColor: "#0B79C1", color: "#fff" }}>
                 <th>Stt</th>
+                <th>ID</th>
                 <th>Total Product</th>
                 <th>Total Price</th>
                 <th>Payment Status</th>
