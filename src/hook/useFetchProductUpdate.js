@@ -2,16 +2,16 @@ import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
 import { useState } from "react";
 
-export default function useFetchCart() {
+export default function useFetchProductUpdate() {
   const [isLoading, setIsLoading] = useState(false);
-  const [categories, setSetCategories] = useState([]);
-  [];
+  const [productInfo, setProduct] = useState();
 
-  const getCart = async () => {
+  const getProduct = async (id) => {
     try {
       setIsLoading(true);
-      await http.get("/api/cart").then((response) => {
-        setSetCategories(response.data);
+
+      await http.get(`/api/product/${id}`).then((response) => {
+        setProduct(response.data);
         setIsLoading(false);
       });
     } catch (error) {
@@ -20,9 +20,5 @@ export default function useFetchCart() {
     }
   };
 
-  // useEffect(() => {
-  //   getCart();
-  // }, []);
-
-  return [categories, getCart, isLoading];
+  return [productInfo, getProduct, isLoading];
 }

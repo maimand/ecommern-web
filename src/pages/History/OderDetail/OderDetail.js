@@ -31,6 +31,7 @@ export default function OderDetail() {
               <tr style={{ backgroundColor: "#0B79C1", color: "#fff" }}>
                 <th>Stt</th>
                 <th>Name</th>
+                <th>Image</th>
                 <th>Purchase Price</th>
                 <th>Quantity</th>
                 <th>Total Price</th>
@@ -43,6 +44,12 @@ export default function OderDetail() {
                     {i}
                   </th>
                   <td>{order?.product?.name}</td>
+                  <td>
+                    <img
+                      src={order?.product?.imageUrl}
+                      style={{ height: "80px" }}
+                    />
+                  </td>
                   <td>{order?.purchasePrice}</td>
                   <td>{order?.quantity}</td>
                   <td>{order?.totalPrice}</td>

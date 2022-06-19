@@ -17,6 +17,7 @@ import Cart from "pages/Cart/Cart";
 import HIstory from "pages/History/History";
 import OderDetail from "pages/History/OderDetail/OderDetail";
 import ProductDetail from "pages/ProductDetail/ProductDetail";
+import RequestMechant from "pages/RequestMerchant/RequestMechant";
 
 export const routeConfig = [
   {
@@ -42,6 +43,12 @@ export const routeConfig = [
     isPrivate: false,
     exact: true,
     component: Login
+  },
+  {
+    path: "/merchant/request-seller",
+    isPrivate: true,
+    exact: true,
+    component: RequestMechant
   },
   {
     path: "/forgot-password-enter-email",
