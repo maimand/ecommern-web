@@ -34,9 +34,25 @@ export default function Product(props) {
     return history.push(`/update-product-merchant/${id}`);
   };
 
+  const backgroundCSS = productInfo?.isActive ? "#079ad0" : "#e20303";
+
   return (
     <div className="card-wrapper">
-      <Card className="card-wrapper-content">
+      <Card className="card-wrapper-content position-relative">
+        <span
+          className="position-absolute"
+          style={{
+            top: "2px",
+            right: "2px",
+            backgroundColor: backgroundCSS,
+            padding: "3px 3px",
+            borderRadius: "10px",
+            textAlign: "center",
+            color: "white"
+          }}
+        >
+          {productInfo?.isActive ? "Active" : "Inactive"}
+        </span>
         <CardImg
           alt="Card image cap"
           src={productInfo?.imageUrl}
@@ -45,15 +61,17 @@ export default function Product(props) {
           className="card-img"
         />
         <CardBody>
-          <CardTitle className="text-center" tag="h5">
-            {productInfo.name}
-          </CardTitle>
-          <CardSubtitle className="mb-2 text-muted text-center" tag="h6">
-            {`${productInfo.price} $`}
-          </CardSubtitle>
-          <CardText>{productInfo.description}</CardText>
+          <div style={{ height: "70%", marginBottom: "10px" }}>
+            <CardTitle className="text-center" tag="h5">
+              {productInfo.name}
+            </CardTitle>
+            <CardSubtitle className="mb-2 text-muted text-center" tag="h6">
+              {`${productInfo.price} $`}
+            </CardSubtitle>
+            <CardText>{productInfo.description}</CardText>
+          </div>
           <div
-            style={{ width: "100%" }}
+            style={{ bottom: "10px" }}
             className="d-flex justify-content-center"
           >
             <button

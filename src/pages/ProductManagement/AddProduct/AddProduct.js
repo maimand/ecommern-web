@@ -46,10 +46,18 @@ const AddProduct = () => {
       });
   };
 
+  const goBack = () => {
+    history.goBack();
+  };
+
   return (
     <MainLayout>
       <Loading visible={isLoading} />
       <div className="update-product">
+        <div
+          onClick={goBack}
+          className="update-back-btn position-absolute"
+        ></div>
         <h2>Add Product</h2>
         <div>
           <div className="update-feild">
