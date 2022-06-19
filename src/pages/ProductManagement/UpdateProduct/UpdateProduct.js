@@ -1,111 +1,114 @@
-import { useFormik } from "formik";
-import MainLayout from "layout/MainLayout/MainLayout";
-import React, { useState } from "react";
-import { Form, Button, FormGroup, Input, Label } from "reactstrap";
-import "./UpdateProduct.scss";
-import Loading from "components/Loading/Loading";
+// /*eslint-disable*/
+import axios from "axios";
 import { pushToast } from "components/Toast";
-import http from "core/services/httpService";
+import { getToken } from "core/localStore";
+import useFetchProductUpdate from "hook/useFetchProductUpdate";
+import MainLayout from "layout/MainLayout/MainLayout";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import "./UpdateProduct.scss";
 
 export default function UpdateProduct() {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      image: "",
-      description: "",
-      quantity: "",
-      price: ""
-    },
-    onSubmit: async (values) => {
-      try {
-        setIsLoading(true);
-
-        try {
-          await http
-            .post("/api/auth/register", {
-              email: values.email,
-              firstName: values.firstName,
-              lastName: values.lastName,
-              password: values.password
-            })
-            .then((response) => {
-              if (response?.success) {
-                setIsLoading(false);
-
-                pushToast("success", response?.message);
-                // localStorage.setItem("email", values.email);
-                // history.push("/login", { email: values.email });
-              } else {
-                pushToast("error", response?.message);
-                values.password = "";
-                values.confirmPassword = "";
-              }
-
-              setIsLoading(false);
-            });
-        } catch (error) {
-          pushToast("error", error?.message);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        pushToast("error", error?.message);
-        setIsLoading(false);
-      }
-    }
+  const [data, setData] = useState({
+    name: "",
+    description: "",
+    price: "",
+    quantity: "",
+    image: ""
   });
-  const touched = formik.touched;
-  const error = formik.errors;
-  //   const values = formik.values;
+  const history = useHistory();
+  const id = window.location.href.split("/");
+  const [product, getProduct] = useFetchProductUpdate();
+  useEffect(() => {
+    setData({
+      name: product?.name,
+      description: product?.description,
+      price: product?.price,
+      quantity: product?.quantity,
+      image: ""
+    });
+  }, [product]);
 
+  useEffect(() => {
+    getProduct(id[id.length - 1]);
+  }, []);
+  const handleSubmit = async () => {
+    var bodyFormData = new FormData();
+    bodyFormData.append("name", data.name);
+    bodyFormData.append("description", data.description);
+    bodyFormData.append("price", data.price);
+    bodyFormData.append("quantity", data.quantity);
+    bodyFormData.append("image", data.image);
+    await axios({
+      method: "put",
+      url: process.env.REACT_APP_API_URL + `api/product/${id[id.length - 1]}`,
+      data: bodyFormData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+      .then(function (response) {
+        pushToast("success", response?.message);
+        history.push("/");
+      })
+      .catch(function (response) {
+        pushToast("error", response?.message);
+      });
+  };
   return (
     <MainLayout>
-      <Loading visible={isLoading} />
       <div className="update-product">
         <h2>Update Product</h2>
-        <Form>
-          <FormGroup>
-            <Label for="name">Name</Label>
-            <Input
-              required
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Product Name"
+        <div>
+          <div className="update-feild">
+            <h6>Name</h6>
+            <input
+              className="item"
+              value={data?.name}
+              onChange={(e) => setData({ ...data, name: e.target.value })}
             />
-            {error.name && touched.name && (
-              <p className="errors">{error.firstName}</p>
-            )}
-          </FormGroup>
-          <FormGroup>
-            <Label for="unitPrice">Unit Price</Label>
-            <Input
-              type="number"
-              name="unitPrice"
-              id="unitPrice"
-              placeholder="0"
+          </div>
+          <div className="update-feild">
+            <h6>description</h6>
+            <textarea
+              value={data?.description}
+              onChange={(e) =>
+                setData({ ...data, description: e.target.value })
+              }
             />
-          </FormGroup>
-          <FormGroup>
-            <Label for="Quantity">Quantity</Label>
-            <Input
-              type="number"
-              name="Quantity"
-              id="Quantity"
-              placeholder="0"
+          </div>
+          <div className="update-feild">
+            <h6>quantity</h6>
+            <input
+              className="item"
+              value={data?.quantity}
+              onChange={(e) => setData({ ...data, quantity: e.target.value })}
             />
-          </FormGroup>
-          <FormGroup>
-            <Label for="exampleText">Description</Label>
-            <Input type="textarea" name="text" id="exampleText" />
-          </FormGroup>
-          <FormGroup>
-            <Label for="exampleFile">Image</Label>
-            <Input type="file" name="file" id="exampleFile" />
-          </FormGroup>
-          <Button>Submit</Button>
-        </Form>
+          </div>
+          <div className="update-feild">
+            <h6>price</h6>
+            <input
+              className="item"
+              value={data?.price}
+              onChange={(e) => setData({ ...data, price: e.target.value })}
+            />
+          </div>
+          <div className="update-feild">
+            <h6>image</h6>
+            <input
+              type="file"
+              onChange={(e) => setData({ ...data, image: e.target.files[0] })}
+            />
+          </div>
+          <button
+            className="btn btn-success"
+            onClick={() => handleSubmit()}
+            disabled={data.image === ""}
+          >
+            Submit
+          </button>
+        </div>
       </div>
     </MainLayout>
   );

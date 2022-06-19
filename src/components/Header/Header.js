@@ -140,17 +140,26 @@ const Header = () => {
                     ></span>
                   </DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem onClick={logoutUser}>Logout</DropdownItem>
                     <DropdownItem onClick={() => history.push("/user/history")}>
                       History
                     </DropdownItem>
-                    {user?.role === "ROLE_MERCHANT" && (
+
+                    {user?.role === "ROLE_MERCHANT" ? (
                       <DropdownItem
                         onClick={() => history.push("/user/order-management")}
                       >
                         Order Merchant
                       </DropdownItem>
+                    ) : (
+                      <DropdownItem
+                        onClick={() => history.push("/merchant/request-seller")}
+                      >
+                        Request Seller
+                      </DropdownItem>
                     )}
+                    <DropdownItem onClick={logoutUser} style={{ color: "red" }}>
+                      Logout
+                    </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               ) : (
