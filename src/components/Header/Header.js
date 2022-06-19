@@ -7,7 +7,6 @@ import {
   Container,
   Navbar,
   NavbarBrand,
-  Input,
   Row,
   Col,
   UncontrolledDropdown,
@@ -24,6 +23,7 @@ import useFetchCategoryMerchant from "hook/useFetchCategoryMerchant";
 import { getUser } from "core/localStore";
 import useFetchMenu from "hook/useFetchMenu";
 import { USER_ROLE } from "core/constants";
+import Search from "components/Search/Search";
 
 const Header = () => {
   const history = useHistory();
@@ -82,13 +82,7 @@ const Header = () => {
                 <img src={logo} alt="" className="logo" />
               </NavbarBrand>
             </Col>
-            <Col
-              className="d-inline-block mt-2"
-              style={{ width: "40%", flex: "3" }}
-            >
-              <Input placeholder="searching..." />
-            </Col>
-
+            <Search />
             <Col
               className="d-flex flex-row align-items-baseline justify-content-end"
               style={{ flex: "2" }}
