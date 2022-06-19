@@ -19,6 +19,7 @@ import OderDetail from "pages/History/OderDetail/OderDetail";
 import ProductDetail from "pages/ProductDetail/ProductDetail";
 import RequestMechant from "pages/RequestMerchant/RequestMechant";
 import AddProduct from "pages/ProductManagement/AddProduct/AddProduct";
+import ResetPassword from "pages/Authentication/ForgotPassword/ResetPassword";
 
 export const routeConfig = [
   {
@@ -64,6 +65,12 @@ export const routeConfig = [
     component: UpdatePassWord
   },
   {
+    path: "/reset-password",
+    isPrivate: false,
+    exact: true,
+    component: ResetPassword
+  },
+  {
     path: "/:slug",
     isPrivate: false,
     exact: true,
@@ -106,7 +113,7 @@ export const routeConfig = [
     component: HIstory
   },
   {
-    path: "/merchant/add-product",
+    path: "/merchant/add-product/:subCategoryId",
     isPrivate: true,
     exact: true,
     component: AddProduct

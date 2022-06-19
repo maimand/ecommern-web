@@ -4,7 +4,7 @@ import useFetchCategoryMerchant from "hook/useFetchCategoryMerchant";
 import useFetProductMerchant from "hook/useFetchProductMerchant";
 import MainLayout from "layout/MainLayout/MainLayout";
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import {
   CardGroup,
   DropdownItem,
@@ -17,6 +17,7 @@ import "./ProductManagement.scss";
 
 const ProductManagement = () => {
   const history = useHistory();
+  const { categoryId } = useParams();
 
   const [categories] = useFetchCategoryMerchant();
   const ShowCategories = categories?.slice(0, 4);
@@ -62,25 +63,29 @@ const ProductManagement = () => {
             {showListCategories}
           </ul>
         </div>
-        <button
-          className="btn btn-info mb-4"
-          onClick={() => {
-            history.push("/merchant/add-product");
-          }}
-        >
-          Add product
-        </button>
-        <CardGroup className="product">
-          {data.length == 0 ? (
-            <NoContent>NO PRODUCT</NoContent>
-          ) : (
-            data?.map((product, index) => (
-              <span key={index} className="product-item">
-                <Product productInfo={product} />
-              </span>
-            ))
-          )}
-        </CardGroup>
+        <div>
+          <button
+            className="btn btn-info mb-4"
+            onClick={() => {
+              history.push(`/merchant/add-product/${categoryId}`);
+            }}
+          >
+            Add product
+          </button>
+        </div>
+        <div>
+          <CardGroup className="product">
+            {data.length == 0 ? (
+              <NoContent>NO PRODUCT</NoContent>
+            ) : (
+              data?.map((product, index) => (
+                <span key={index} className="product-item">
+                  <Product productInfo={product} />
+                </span>
+              ))
+            )}
+          </CardGroup>
+        </div>
       </div>
     </MainLayout>
   );
