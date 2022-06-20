@@ -103,19 +103,28 @@ export default function OrderDetailMerchant() {
         </div>
         <div className="infor">
           <div className="item">
-            <h6>User Name:</h6>
+            <h6 style={{ fontWeight: "bold" }}>Customer:</h6>
             {data?.user?.firstName + " " + data?.user?.lastName}
           </div>
           <div className="item">
-            <h6>Phone Number:</h6> {data?.phoneNumber}
+            <h6 style={{ fontWeight: "bold" }}>Phone Number:</h6>{" "}
+            {data?.phoneNumber}
           </div>
           <div className="item">
-            <h6>Status: </h6>
-            {data?.status}
-          </div>
-          <div className="item">
-            <h6>Address: </h6>
+            <h6 style={{ fontWeight: "bold" }}>Address: </h6>
             {data?.address}
+          </div>
+          <div className="item">
+            <h6 style={{ fontWeight: "bold" }}>Total amount: </h6>
+            {data?.cart?.total}
+          </div>
+          <div className="item">
+            <h6 style={{ fontWeight: "bold" }}>Payment status: </h6>
+            {data?.paymentStatus}
+          </div>
+          <div className="item">
+            <h6 style={{ fontWeight: "bold" }}>Status: </h6>
+            {data?.status}
           </div>
         </div>
       </div>

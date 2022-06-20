@@ -41,13 +41,13 @@ export default function History() {
           <Table bordered>
             <thead>
               <tr style={{ backgroundColor: "#0B79C1", color: "#fff" }}>
-                <th>Stt</th>
+                <th>STT</th>
                 <th>ID</th>
-                <th>Address</th>
-                <th>Phone Number</th>
+                <th>Total Product</th>
+                <th>Total Amount</th>
                 <th>Payment</th>
-                <th>Status</th>
                 <th>Payment Status</th>
+                <th>Status</th>
                 <th style={{ width: "320px" }}>Action</th>
               </tr>
             </thead>
@@ -58,11 +58,11 @@ export default function History() {
                     {i + 1}
                   </th>
                   <td>{order?._id}</td>
-                  <td>{order?.address}</td>
-                  <td>{order?.phoneNumber}</td>
+                  <td>{order?.cart?.products?.length}</td>
+                  <td>{order?.cart?.total}</td>
                   <td>{order?.payment}</td>
-                  <td>{order?.status}</td>
                   <td>{order?.paymentStatus}</td>
+                  <td>{order?.status}</td>
                   <td>
                     <button
                       className="btn btn-success"
