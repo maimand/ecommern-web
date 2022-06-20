@@ -1,5 +1,6 @@
 /* eslint-disable*/
 import Loading from "components/Loading/Loading";
+import NoContent from "components/NoContent/NoContent";
 import { pushToast } from "components/Toast";
 import http from "core/services/httpService";
 import useFetchCart from "hook/useFetchCart";
@@ -141,7 +142,7 @@ export default function Cart() {
           )}
         </div>
         <div className="main">
-          {!payment?.isPayment ? (
+          {carts.length ==0 ? <NoContent>No Product In Cart</NoContent> : !payment?.isPayment ? (
             carts?.map((cart, index) => (
               <div key={index} className="cart-table">
                 <div className="cart-table-header">

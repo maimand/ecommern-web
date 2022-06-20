@@ -3,7 +3,7 @@ import Product from "components/Product/Product";
 import useFetchCategoryMerchant from "hook/useFetchCategoryMerchant";
 import useFetProductMerchant from "hook/useFetchProductMerchant";
 import MainLayout from "layout/MainLayout/MainLayout";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import {
   CardGroup,
@@ -22,12 +22,14 @@ const ProductManagement = () => {
   const [categories] = useFetchCategoryMerchant();
   const ShowCategories = categories?.slice(0, 4);
   const [data, setCategoryIdRQ] = useFetProductMerchant();
+  const [disableAddProduct, setDisableAddProduct] = useState(true);
 
   const showListCategories = ShowCategories.map((category, index) => (
     <span className=" custom-category" key={index}>
       <span
         className="cursor px-1 font-weight-bold"
         onClick={() => {
+          setDisableAddProduct(true);
           setCategoryIdRQ(category._id);
           history.push(`/product-management-merchant/${category._id}`);
         }}
@@ -43,6 +45,7 @@ const ProductManagement = () => {
             <DropdownItem
               key={subIndex}
               onClick={() => {
+                setDisableAddProduct(false);
                 setCategoryIdRQ(category._id);
                 history.push(`/product-management-merchant/${sub._id}`);
               }}
@@ -66,6 +69,7 @@ const ProductManagement = () => {
         <div>
           <button
             className="btn btn-info mb-4"
+            disabled={disableAddProduct}
             onClick={() => {
               history.push(`/merchant/add-product/${categoryId}`);
             }}
