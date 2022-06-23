@@ -10,7 +10,6 @@ const AuthBanner = () => {
           <img src="" alt="" className="logo" />
         </div>
       </div>
-      <p className="slogan">Commerce Project</p>
     </div>
   );
 };

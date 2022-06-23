@@ -49,7 +49,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer-copyright d-flex justify-content-center">
-          <span>Ecommerce Store</span>
+          <span>Shope</span>
         </div>
         <ul className="footer-social">
           <li>
