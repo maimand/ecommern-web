@@ -57,6 +57,32 @@ export default function OderDetail() {
               ))}
             </tbody>
           </Table>
+          <div className="infor">
+            <div className="item">
+              <h6 style={{ fontWeight: "bold" }}>Customer:</h6>
+              {detail?.user?.firstName + " " + detail?.user?.lastName}
+            </div>
+            <div className="item">
+              <h6 style={{ fontWeight: "bold" }}>Phone Number:</h6>{" "}
+              {detail?.phoneNumber}
+            </div>
+            <div className="item">
+              <h6 style={{ fontWeight: "bold" }}>Address: </h6>
+              {detail?.address}
+            </div>
+            <div className="item">
+              <h6 style={{ fontWeight: "bold" }}>Total amount: </h6>
+              {detail?.cart?.total}
+            </div>
+            <div className="item">
+              <h6 style={{ fontWeight: "bold" }}>Payment status: </h6>
+              {detail?.paymentStatus}
+            </div>
+            <div className="item">
+              <h6 style={{ fontWeight: "bold" }}>Status: </h6>
+              {detail?.status}
+            </div>
+          </div>
         </div>
       </div>
     </MainLayout>
