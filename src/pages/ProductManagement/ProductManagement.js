@@ -88,17 +88,6 @@ const ProductManagement = () => {
           </ul>
         </div>
         <div>
-          <button
-            className="btn btn-info mb-4"
-            disabled={disableAddProduct}
-            onClick={() => {
-              history.push(`/merchant/add-product/${categoryId}`);
-            }}
-          >
-            Add product
-          </button>
-        </div>
-        <div>
           <CardGroup className="product">
             {data?.length == 0 ? (
               <NoContent>NO PRODUCT</NoContent>
@@ -110,6 +99,17 @@ const ProductManagement = () => {
               ))
             )}
           </CardGroup>
+        </div>
+        <div>
+          <button
+            className="btn btn-info1 mb-4"
+            disabled={disableAddProduct}
+            onClick={() => {
+              history.push(`/merchant/add-product/${categoryId}`);
+            }}
+          >
+            Add product
+          </button>
         </div>
       </div>
     </MainLayout>

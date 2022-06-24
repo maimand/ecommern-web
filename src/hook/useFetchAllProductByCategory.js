@@ -17,7 +17,7 @@ export default function useFetchAllProductByCategory() {
         rating: 0,
         max: 500000,
         min: 1,
-        pageNumber: 1,
+        pageNumber: -1,
         category: slug
       };
 
@@ -38,7 +38,7 @@ export default function useFetchAllProductByCategory() {
       rating: 0,
       max: 500000,
       min: 1,
-      pageNumber: 1,
+      pageNumber: -1,
       category: slug
     };
     getProducts(value);

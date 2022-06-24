@@ -38,7 +38,7 @@ http.interceptors.response.use(
     if (data && data.message) {
       throw data;
     } else {
-      error.message = "Some thing wrong";
+      error.message = "Please login first!";
       throw error;
     }
   }

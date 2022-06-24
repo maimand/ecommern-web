@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./Header.scss";
-import logo from "../../assets/images/brand-logo.svg";
-import Cart from "../../assets/images/cart-icon.webp";
+import logo from "../../assets/images/logo_ecommern.jpg";
+import Cart from "../../assets/images/cart_ecommern.png";
 
 import {
   Container,
@@ -171,7 +171,7 @@ const Header = () => {
                     <DropdownItem onClick={() => history.push("/login")}>
                       Login
                     </DropdownItem>
-                    <DropdownItem onClick={() => history.push("/register")}>
+                    <DropdownItem onClick={() => history.push("/signup")}>
                       Sign Up
                     </DropdownItem>
                   </DropdownMenu>
