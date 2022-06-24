@@ -5,8 +5,12 @@ import { setLoading } from "store/user";
 import "./Search.scss";
 import SearchItem from "./SearchItem";
 
+import searchImg from "../../assets/icons/search.svg";
+import closeImg from "../../assets/icons/close.svg";
+
 const Search = () => {
   const [filterData, setFilterData] = useState([]);
+  const [words, setWords] = useState(true);
 
   const handleFilter = async (event) => {
     const searchWord = event.target.value;
@@ -36,8 +40,10 @@ const Search = () => {
 
         if (searchWord === "") {
           setFilterData([]);
+          setWords(true);
         } else {
           setFilterData(newFilter);
+          setWords(false);
         }
       }
     } catch (err) {
@@ -45,12 +51,37 @@ const Search = () => {
     }
   };
 
+  const onClose = () => {
+    document.getElementById("input-search").value = null;
+    setWords(true);
+    setFilterData([]);
+  };
+
   return (
     <Col
       className="d-inline-block mt-2 search-box position-relative"
       style={{ width: "40%", flex: "3" }}
     >
-      <Input placeholder="searching..." onChange={handleFilter} />
+      <Input
+        id="input-search"
+        placeholder="searching..."
+        onChange={handleFilter}
+      />
+      {words !== true ? (
+        <div className="icon-close-search" onClick={onClose}>
+          <img
+            src={closeImg}
+            style={{ width: "25px", height: "25px", color: "#373030" }}
+          />
+        </div>
+      ) : (
+        <div className="icon-close-search">
+          <img
+            src={searchImg}
+            style={{ width: "25px", height: "25px", color: "#373030" }}
+          />
+        </div>
+      )}
       {filterData.length != 0 && (
         <div className="search-container">
           {filterData.length != 0 &&

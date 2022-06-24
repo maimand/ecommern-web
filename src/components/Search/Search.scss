@@ -1,5 +1,13 @@
 @import "assets/scss/app.scss";
 .search-box {
+  .icon-close-search {
+    position: absolute;
+    right: 20px;
+    top: 5px;
+
+    z-index: 1000;
+  }
+
   .search-container {
     position: absolute;
     left: 2%;
