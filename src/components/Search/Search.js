@@ -21,7 +21,7 @@ const Search = () => {
         rating: 0,
         max: 500000,
         min: 1,
-        pageNumber: 1,
+        pageNumber: -1,
         name: searchWord
       };
 
