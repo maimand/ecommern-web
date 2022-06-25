@@ -11,7 +11,7 @@ export default function useFetchCategoryMerchant() {
     try {
       setIsLoading(true);
 
-      await http.get("/api/merchant/categories/all").then((response) => {
+      await http.get("/api/category/").then((response) => {
         setSetCategories(response.data);
         setIsLoading(false);
       });
