@@ -1,0 +1,17 @@
+@import "assets/scss/app.scss";
+
+.main-layout {
+  padding: 0px;
+  margin: 0px;
+  header: 100vh;
+  width: 100vw;
+  overflow: hidden;
+
+  .content {
+    position: relative;
+    min-height: 65vh;
+    padding: 20px 50px;
+    margin: 0px;
+    margin-top: 75px;
+  }
+}

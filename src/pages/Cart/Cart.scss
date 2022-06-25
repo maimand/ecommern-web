@@ -1,0 +1,23 @@
+.cart-table {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.payment-after {
+  display: flex;
+  justify-content: center;
+  div{
+    margin-right: 20px;
+  }
+}
+
+.info-submit{
+  width: 100%;
+  margin-bottom: 10px;
+  input{
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+  }
+}
